@@ -1162,6 +1162,30 @@ a {
     transform: translateX(0);
 }
 
+/* --- Mobile Floating CTA --- */
+.mobile-float-cta {
+    display: none;
+}
+
+/* --- Enhanced Mobile Menu Styles --- */
+.mobile-menu-inner {
+    text-align: center;
+    width: 100%;
+    padding: 0 40px;
+}
+
+.mobile-menu-brand {
+    display: none;
+}
+
+.mobile-menu-cta {
+    display: none;
+}
+
+.mobile-menu-hours {
+    display: none;
+}
+
 /* --- Responsive --- */
 @media (max-width: 1024px) {
     .container {
@@ -1203,14 +1227,16 @@ a {
 }
 
 @media (max-width: 768px) {
+    /* --- Base mobile spacing --- */
     .container {
-        padding: 0 20px;
+        padding: 0 24px;
     }
 
     .section {
         padding: 80px 0;
     }
 
+    /* --- Navigation --- */
     .nav-links,
     .nav-cta {
         display: none;
@@ -1224,91 +1250,476 @@ a {
         padding: 0 20px;
     }
 
+    .nav {
+        padding: 16px 0;
+    }
+
+    .nav.scrolled {
+        padding: 10px 0;
+    }
+
+    /* --- Enhanced Mobile Menu --- */
+    .mobile-menu {
+        padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    }
+
+    .mobile-menu-brand {
+        display: block;
+        margin-bottom: 40px;
+    }
+
+    .mobile-menu-icon {
+        height: 48px;
+        width: auto;
+        color: var(--gold);
+        opacity: 0.3;
+    }
+
+    .mobile-menu-links {
+        margin-bottom: 40px;
+    }
+
+    .mobile-menu-links li {
+        margin-bottom: 24px;
+    }
+
+    .mobile-menu-links a {
+        font-size: 2rem;
+        letter-spacing: 0.08em;
+    }
+
+    .mobile-menu-cta {
+        display: block;
+        margin-bottom: 30px;
+    }
+
+    .mobile-cta-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-family: var(--font-body);
+        font-size: 1rem;
+        font-weight: 500;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--black);
+        background: var(--gold);
+        padding: 16px 40px;
+        transition: all var(--transition);
+    }
+
+    .mobile-menu-hours {
+        display: block;
+    }
+
+    .mobile-menu-hours p {
+        font-family: var(--font-body);
+        font-size: 0.85rem;
+        color: var(--gray);
+        letter-spacing: 0.05em;
+        line-height: 1.8;
+    }
+
+    /* --- Floating CTA Bar --- */
+    .mobile-float-cta {
+        display: block;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 998;
+        padding: 12px 20px calc(12px + env(safe-area-inset-bottom));
+        background: linear-gradient(to top, rgba(10, 10, 10, 0.98) 60%, transparent);
+        transform: translateY(100%);
+        transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        pointer-events: none;
+    }
+
+    .mobile-float-cta.visible {
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+
+    .mobile-float-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        padding: 16px 20px;
+        background: var(--gold);
+        color: var(--black);
+        font-family: var(--font-body);
+        font-size: 0.95rem;
+        font-weight: 600;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        text-align: center;
+        border-radius: 0;
+        transition: all var(--transition-fast);
+    }
+
+    .mobile-float-btn:active {
+        background: var(--gold-dark);
+        transform: scale(0.98);
+    }
+
+    /* --- Hero Mobile --- */
     .hero {
-        min-height: 600px;
+        min-height: 100svh;
+        min-height: -webkit-fill-available;
+    }
+
+    .hero-content {
+        padding: 0 24px;
+        padding-bottom: 80px;
+    }
+
+    .hero-subtitle {
+        font-size: 0.85rem;
+        letter-spacing: 0.4em;
+        margin-bottom: 16px;
     }
 
     .hero-title-line {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
+        margin-bottom: 4px;
     }
 
     .hero-title-accent {
-        font-size: 2.8rem;
-        letter-spacing: 0.1em;
+        font-size: 2.6rem;
+        letter-spacing: 0.12em;
     }
 
     .hero-desc {
-        font-size: 1.05rem;
+        font-size: 1rem;
+        margin-bottom: 36px;
+        padding: 0 10px;
     }
 
     .hero-actions {
         flex-direction: column;
-        align-items: center;
-        gap: 15px;
+        align-items: stretch;
+        gap: 12px;
+        padding: 0 10px;
     }
 
+    .hero-actions .btn {
+        text-align: center;
+        padding: 16px 20px;
+        font-size: 0.9rem;
+    }
+
+    .hero-scroll {
+        bottom: 24px;
+    }
+
+    .hero-scroll-line {
+        height: 40px;
+    }
+
+    /* --- Section titles mobile --- */
     .section-title {
         font-size: 2rem;
+        margin-bottom: 24px;
     }
 
+    .section-label {
+        font-size: 0.8rem;
+        letter-spacing: 0.25em;
+        margin-bottom: 12px;
+    }
+
+    /* --- About mobile --- */
     .about-grid {
         grid-template-columns: 1fr;
-        gap: 60px;
+        gap: 50px;
     }
 
     .about-images {
-        max-width: 500px;
+        max-width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    .about-img-main {
+        width: 100%;
+        aspect-ratio: 3/4;
+    }
+
+    .about-img-accent {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        width: 100%;
+        aspect-ratio: 3/4;
+        border: none;
+        box-shadow: none;
     }
 
     .about-text {
         padding-left: 0;
     }
 
+    .about-desc {
+        font-size: 1.05rem;
+        line-height: 1.7;
+    }
+
+    .about-signature {
+        margin-top: 30px;
+    }
+
+    /* --- Cuisine mobile: horizontal scroll --- */
+    .cuisine-header {
+        margin-bottom: 40px;
+    }
+
     .cuisine-grid {
-        grid-template-columns: 1fr;
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 16px;
+        padding-bottom: 20px;
+        margin: 0 -24px;
+        padding-left: 24px;
+        padding-right: 24px;
+        scrollbar-width: none;
+    }
+
+    .cuisine-grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    .cuisine-card {
+        flex: 0 0 82%;
+        scroll-snap-align: center;
+        max-width: 340px;
+    }
+
+    .cuisine-card-content {
+        padding: 24px;
+    }
+
+    .cuisine-card-content h3 {
+        font-size: 1.3rem;
+    }
+
+    .cuisine-card-content p {
+        font-size: 0.95rem;
+    }
+
+    /* --- Statement mobile --- */
+    .statement {
+        padding: 80px 0;
     }
 
     .statement-quote {
-        font-size: 2rem;
+        font-size: 1.6rem;
+        line-height: 1.5;
+    }
+
+    .statement-attr {
+        font-size: 0.85rem;
+        margin-top: 20px;
+    }
+
+    /* --- Gallery mobile: stacked with peek --- */
+    .gallery-header {
+        margin-bottom: 40px;
     }
 
     .gallery-grid {
-        grid-template-columns: repeat(2, 1fr);
-        grid-auto-rows: 200px;
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 12px;
+        margin: 0 -24px;
+        padding: 0 24px 16px;
+        scrollbar-width: none;
+    }
+
+    .gallery-grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    .gallery-item {
+        flex: 0 0 78%;
+        height: 280px;
+        scroll-snap-align: center;
+        border-radius: 4px;
+    }
+
+    .gallery-item-tall,
+    .gallery-item-wide {
+        grid-row: unset;
+        grid-column: unset;
     }
 
     .gallery-item-tall {
-        grid-row: span 1;
+        height: 280px;
     }
 
-    .gallery-item-wide {
-        grid-column: span 1;
+    .gallery-item-overlay {
+        opacity: 1;
+        background: linear-gradient(to top, rgba(10, 10, 10, 0.7) 0%, transparent 40%);
+    }
+
+    .gallery-item-overlay span {
+        font-size: 1rem;
+    }
+
+    /* --- Menu mobile: scrollable tabs --- */
+    .menu-header {
+        margin-bottom: 30px;
+    }
+
+    .menu-tabs {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 8px;
+        margin: 0 -24px 40px;
+        padding: 0 24px;
+        justify-content: flex-start;
+        scrollbar-width: none;
+    }
+
+    .menu-tabs::-webkit-scrollbar {
+        display: none;
+    }
+
+    .menu-tab {
+        flex: 0 0 auto;
+        scroll-snap-align: start;
+        font-size: 0.8rem;
+        padding: 10px 20px;
+        white-space: nowrap;
     }
 
     .menu-grid {
         grid-template-columns: 1fr;
     }
 
+    .menu-item {
+        padding: 22px 0;
+    }
+
     .menu-item:nth-child(odd) {
         border-right: none;
     }
 
-    .menu-tab {
-        font-size: 0.85rem;
-        padding: 10px 20px;
+    .menu-item-header h4 {
+        font-size: 1.1rem;
     }
 
+    .menu-price {
+        font-size: 1rem;
+    }
+
+    .menu-item p {
+        font-size: 0.9rem;
+    }
+
+    /* --- Drinks mobile --- */
+    .drinks-content {
+        max-width: 100%;
+    }
+
+    .drinks-desc {
+        font-size: 1.05rem;
+        margin-bottom: 35px;
+    }
+
+    .drinks-highlights {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .drinks-highlight-item {
+        text-align: left;
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+        padding: 16px 0;
+        border-bottom: 1px solid rgba(178, 137, 93, 0.15);
+    }
+
+    .drinks-highlight-item:last-child {
+        border-bottom: none;
+    }
+
+    .drinks-highlight-label {
+        font-size: 0.75rem;
+        min-width: 90px;
+        margin-bottom: 0;
+    }
+
+    .drinks-highlight-name {
+        font-size: 1rem;
+    }
+
+    .drinks-divider {
+        display: none;
+    }
+
+    /* --- Contact mobile --- */
     .contact-grid {
         grid-template-columns: 1fr;
-        gap: 60px;
+        gap: 50px;
     }
 
+    .contact-item {
+        margin-bottom: 28px;
+    }
+
+    .contact-icon {
+        width: 44px;
+        height: 44px;
+    }
+
+    .contact-icon svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .contact-item h4 {
+        font-size: 1rem;
+    }
+
+    .contact-item p {
+        font-size: 0.95rem;
+    }
+
+    /* --- Reservation card mobile --- */
     .reservation-card {
-        padding: 35px 25px;
+        padding: 40px 24px;
     }
 
-    .form-row {
-        grid-template-columns: 1fr;
+    .reservation-title {
+        font-size: 1.5rem;
+    }
+
+    .reservation-desc {
+        font-size: 1rem;
+        margin-bottom: 28px;
+    }
+
+    .reservation-phone-number {
+        font-size: 1.7rem;
+        margin-bottom: 24px;
+    }
+
+    /* --- Footer mobile --- */
+    .footer {
+        padding: 60px 0 40px;
+        padding-bottom: calc(40px + 70px);
     }
 
     .footer-inner {
@@ -1317,35 +1728,82 @@ a {
     }
 
     .footer-links {
-        gap: 40px;
-    }
-
-    .drinks-highlights {
         flex-direction: column;
-        align-items: flex-start;
+        gap: 30px;
     }
 
-    .drinks-divider {
-        width: 40px;
-        height: 1px;
+    .footer-col {
+        gap: 8px;
+    }
+
+    .footer-bottom {
+        padding-top: 24px;
+    }
+
+    .footer-bottom p {
+        font-size: 0.8rem;
+    }
+
+    /* --- Reveal animations: faster on mobile --- */
+    .reveal {
+        transform: translateY(20px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .reveal-left {
+        transform: translateX(-20px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
     }
 }
 
-@media (max-width: 480px) {
+/* --- Extra small screens (< 380px) --- */
+@media (max-width: 380px) {
+    .container {
+        padding: 0 16px;
+    }
+
     .hero-title-accent {
-        font-size: 2.2rem;
+        font-size: 2.1rem;
+        letter-spacing: 0.08em;
+    }
+
+    .hero-title-line {
+        font-size: 1.1rem;
     }
 
     .section-title {
-        font-size: 1.8rem;
-    }
-
-    .gallery-grid {
-        grid-template-columns: 1fr;
-        grid-auto-rows: 250px;
+        font-size: 1.7rem;
     }
 
     .mobile-menu-links a {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
+    }
+
+    .cuisine-card {
+        flex: 0 0 88%;
+    }
+
+    .gallery-item {
+        flex: 0 0 85%;
+        height: 240px;
+    }
+
+    .reservation-phone-number {
+        font-size: 1.4rem;
+    }
+
+    .statement-quote {
+        font-size: 1.4rem;
+    }
+}
+
+/* --- Tall phones (safe area + viewport) --- */
+@supports (padding: env(safe-area-inset-bottom)) {
+    .mobile-float-cta {
+        padding-bottom: calc(12px + env(safe-area-inset-bottom));
+    }
+
+    .footer {
+        padding-bottom: calc(40px + 70px + env(safe-area-inset-bottom));
     }
 }

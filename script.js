@@ -123,6 +123,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { passive: true });
     }
 
+    // --- Mobile floating CTA visibility ---
+    const mobileFloatCta = document.getElementById('mobileFloatCta');
+    if (mobileFloatCta) {
+        const handleFloatCta = () => {
+            const scrollY = window.scrollY;
+            const heroHeight = document.getElementById('hero')?.offsetHeight || 600;
+            const docHeight = document.documentElement.scrollHeight;
+            const winHeight = window.innerHeight;
+            const nearBottom = scrollY + winHeight > docHeight - 200;
+
+            if (scrollY > heroHeight * 0.7 && !nearBottom) {
+                mobileFloatCta.classList.add('visible');
+            } else {
+                mobileFloatCta.classList.remove('visible');
+            }
+        };
+        window.addEventListener('scroll', handleFloatCta, { passive: true });
+        handleFloatCta();
+    }
+
     // --- Active nav link highlight ---
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-links a');
