@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="de">
 <head>
     <meta charset="UTF-8">
@@ -9,905 +8,456 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&display=swap" rel="stylesheet">
-<style>
-/* ============================================
-   AKROPOLIS — High-End Restaurant Website
-   Consolidated Inline Styles
-   ============================================ */
-
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-:root {
-–black: #0a0a0a;
-–black-light: #141414;
-–black-card: #1a1a1a;
-–gold: #B2895D;
-–gold-light: #c9a474;
-–gold-dark: #96724a;
-–white: #f5f2ed;
-–white-pure: #ffffff;
-–gray: #8a8a8a;
-–gray-light: #b5b5b5;
-–gray-dark: #3a3a3a;
-–font-display: ‘Playfair Display’, Georgia, serif;
-–font-body: ‘Cormorant Garamond’, Georgia, serif;
-–transition: 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-–transition-fast: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-html { scroll-behavior: smooth; font-size: 16px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-body { font-family: var(–font-body); background-color: var(–black); color: var(–white); line-height: 1.6; overflow-x: hidden; }
-img { display: block; width: 100%; height: 100%; object-fit: cover; }
-a { color: inherit; text-decoration: none; transition: color var(–transition-fast); }
-::selection { background: var(–gold); color: var(–black); }
-.container { max-width: 1320px; margin: 0 auto; padding: 0 40px; }
-.section { padding: 140px 0; position: relative; }
-
-/* — Preloader — */
-.preloader { position: fixed; inset: 0; z-index: 10000; background: var(–black); display: flex; align-items: center; justify-content: center; transition: opacity 0.8s ease, visibility 0.8s ease; }
-.preloader.hidden { opacity: 0; visibility: hidden; }
-.preloader-inner { text-align: center; }
-.preloader-logo { font-family: var(–font-display); font-size: 2.5rem; letter-spacing: 0.4em; color: var(–gold); margin-bottom: 30px; }
-.preloader-line { width: 60px; height: 1px; background: var(–gold); margin: 0 auto; animation: preloaderLine 1.5s ease-in-out infinite; }
-@keyframes preloaderLine { 0%, 100% { transform: scaleX(0.3); opacity: 0.3; } 50% { transform: scaleX(1); opacity: 1; } }
-
-/* — Navigation — */
-.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 20px 0; transition: all var(–transition); }
-.nav.scrolled { background: rgba(10,10,10,0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); padding: 12px 0; border-bottom: 1px solid rgba(178,137,93,0.1); }
-.nav-inner { max-width: 1320px; margin: 0 auto; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; }
-.nav-logo { display: flex; align-items: center; gap: 12px; }
-.nav-logo-icon { height: 42px; width: 42px; border-radius: 50%; object-fit: cover; transition: height var(–transition), width var(–transition); }
-.nav.scrolled .nav-logo-icon { height: 34px; width: 34px; }
-.nav-logo-text { font-family: var(–font-display); font-size: 1.15rem; font-weight: 500; letter-spacing: 0.25em; color: var(–white); transition: font-size var(–transition); }
-.nav.scrolled .nav-logo-text { font-size: 1rem; }
-.nav-links { list-style: none; display: flex; gap: 40px; }
-.nav-links a { font-family: var(–font-body); font-size: 1.05rem; font-weight: 400; letter-spacing: 0.05em; color: var(–white); position: relative; padding-bottom: 4px; }
-.nav-links a::after { content: ‘’; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: var(–gold); transition: width var(–transition); }
-.nav-links a:hover::after { width: 100%; }
-.nav-links a:hover { color: var(–gold); }
-.nav-cta { font-family: var(–font-body); font-size: 0.95rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(–gold); border: 1px solid var(–gold); padding: 10px 28px; transition: all var(–transition); }
-.nav-cta:hover { background: var(–gold); color: var(–black); }
-.nav-toggle { display: none; flex-direction: column; gap: 6px; background: none; border: none; cursor: pointer; padding: 5px; z-index: 1001; }
-.nav-toggle span { display: block; width: 28px; height: 1px; background: var(–white); transition: all var(–transition-fast); }
-.nav-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-.nav-toggle.active span:nth-child(2) { opacity: 0; }
-.nav-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
-
-/* Mobile Menu */
-.mobile-menu { position: fixed; inset: 0; z-index: 999; background: var(–black); display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: all var(–transition); }
-.mobile-menu.active { opacity: 1; visibility: visible; }
-.mobile-menu-links { list-style: none; text-align: center; }
-.mobile-menu-links li { margin-bottom: 30px; opacity: 0; transform: translateY(20px); transition: all var(–transition); }
-.mobile-menu.active .mobile-menu-links li { opacity: 1; transform: translateY(0); }
-.mobile-menu.active .mobile-menu-links li:nth-child(1) { transition-delay: 0.1s; }
-.mobile-menu.active .mobile-menu-links li:nth-child(2) { transition-delay: 0.15s; }
-.mobile-menu.active .mobile-menu-links li:nth-child(3) { transition-delay: 0.2s; }
-.mobile-menu.active .mobile-menu-links li:nth-child(4) { transition-delay: 0.25s; }
-.mobile-menu.active .mobile-menu-links li:nth-child(5) { transition-delay: 0.3s; }
-.mobile-menu.active .mobile-menu-links li:nth-child(6) { transition-delay: 0.35s; }
-.mobile-menu-links a { font-family: var(–font-display); font-size: 2.5rem; color: var(–white); letter-spacing: 0.05em; }
-.mobile-menu-links a:hover { color: var(–gold); }
-.mobile-cta { color: var(–gold) !important; font-size: 1.8rem !important; }
-
-/* — Buttons — */
-.btn { display: inline-block; font-family: var(–font-body); font-size: 1rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; padding: 16px 40px; cursor: pointer; transition: all var(–transition); border: none; }
-.btn-primary { background: var(–gold); color: var(–black); }
-.btn-primary:hover { background: var(–gold-light); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(178,137,93,0.3); }
-.btn-outline { background: transparent; color: var(–white); border: 1px solid rgba(255,255,255,0.3); }
-.btn-outline:hover { border-color: var(–gold); color: var(–gold); }
-.btn-full { width: 100%; text-align: center; }
-
-/* — Hero Section — */
-.hero { position: relative; height: 100vh; min-height: 700px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-.hero-bg { position: absolute; inset: 0; z-index: 0; }
-.hero-bg img { transform: scale(1.1); animation: heroZoom 20s ease-in-out infinite alternate; }
-@keyframes heroZoom { 0% { transform: scale(1.1); } 100% { transform: scale(1.2); } }
-.hero-overlay { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(10,10,10,0.4) 0%, rgba(10,10,10,0.6) 50%, rgba(10,10,10,0.9) 100%); }
-.hero-content { position: relative; z-index: 2; text-align: center; max-width: 800px; padding: 0 40px; }
-.hero-subtitle { font-family: var(–font-body); font-size: 1.1rem; font-weight: 400; letter-spacing: 0.35em; text-transform: uppercase; color: var(–gold); margin-bottom: 20px; }
-.hero-title { font-family: var(–font-display); font-weight: 400; line-height: 1.1; margin-bottom: 30px; }
-.hero-title-line { display: block; font-size: 2.2rem; font-weight: 300; color: var(–white); margin-bottom: 5px; font-style: italic; }
-.hero-title-accent { display: block; font-size: 5rem; letter-spacing: 0.15em; color: var(–white); }
-.hero-desc { font-family: var(–font-body); font-size: 1.25rem; color: var(–gray-light); margin-bottom: 50px; font-weight: 300; letter-spacing: 0.02em; }
-.hero-actions { display: flex; gap: 20px; justify-content: center; }
-.hero-scroll { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); z-index: 2; }
-.hero-scroll-line { width: 1px; height: 60px; background: linear-gradient(to bottom, var(–gold), transparent); animation: scrollLine 2s ease-in-out infinite; }
-@keyframes scrollLine { 0%, 100% { opacity: 0; transform: scaleY(0); transform-origin: top; } 50% { opacity: 1; transform: scaleY(1); } }
-
-/* — Section Labels & Titles — */
-.section-label { font-family: var(–font-body); font-size: 0.9rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; color: var(–gold); margin-bottom: 15px; }
-.section-title { font-family: var(–font-display); font-size: 3.2rem; font-weight: 400; line-height: 1.2; color: var(–white); margin-bottom: 30px; }
-.section-title em { font-style: italic; color: var(–gold); }
-.section-title-light { color: var(–white-pure); }
-
-/* — About Section — */
-.about { background: var(–black); }
-.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-.about-images { position: relative; }
-.about-img-main { width: 85%; aspect-ratio: 3/4; overflow: hidden; }
-.about-img-main img { transition: transform 0.8s ease; }
-.about-img-main:hover img { transform: scale(1.05); }
-.about-img-accent { position: absolute; bottom: -40px; right: 0; width: 55%; aspect-ratio: 1/1; overflow: hidden; border: 4px solid var(–black); box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
-.about-img-accent img { transition: transform 0.8s ease; }
-.about-img-accent:hover img { transform: scale(1.05); }
-.about-text { padding-left: 20px; }
-.about-desc { font-size: 1.15rem; color: var(–gray-light); margin-bottom: 20px; line-height: 1.8; font-weight: 300; }
-.about-signature { display: flex; align-items: center; gap: 20px; margin-top: 40px; }
-.signature-line { width: 50px; height: 1px; background: var(–gold); }
-.signature-text { font-family: var(–font-display); font-size: 1.1rem; font-style: italic; color: var(–gold); }
-
-/* — Cuisine Section — */
-.cuisine { overflow: hidden; }
-.cuisine-bg { position: absolute; inset: 0; z-index: 0; }
-.cuisine-overlay { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.75) 50%, rgba(10,10,10,0.9) 100%); }
-.cuisine .container { position: relative; z-index: 2; }
-.cuisine-header { text-align: center; margin-bottom: 70px; }
-.cuisine-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
-.cuisine-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); overflow: hidden; transition: all var(–transition); backdrop-filter: blur(10px); position: relative; }
-.cuisine-card::before { content: ‘’; position: absolute; inset: -1px; background: linear-gradient(135deg, transparent 40%, rgba(178,137,93,0.4) 50%, transparent 60%); background-size: 300% 300%; z-index: -1; opacity: 0; transition: opacity 0.6s ease; }
-.cuisine-card:hover::before { opacity: 1; animation: shimmerBorder 2s ease infinite; }
-@keyframes shimmerBorder { 0% { background-position: 100% 100%; } 100% { background-position: 0% 0%; } }
-.cuisine-card:hover { border-color: rgba(178,137,93,0.3); transform: translateY(-5px); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
-.cuisine-card-img { aspect-ratio: 4/3; overflow: hidden; }
-.cuisine-card-img img { transition: transform 0.8s ease; }
-.cuisine-card:hover .cuisine-card-img img { transform: scale(1.08); }
-.cuisine-card-content { padding: 30px; }
-.cuisine-card-content h3 { font-family: var(–font-display); font-size: 1.5rem; font-weight: 400; margin-bottom: 12px; color: var(–white); }
-.cuisine-card-content p { font-size: 1.05rem; color: var(–gray); font-weight: 300; line-height: 1.7; }
-
-/* — Statement Section — */
-.statement { padding: 120px 0; background: var(–black-light); border-top: 1px solid rgba(178,137,93,0.1); border-bottom: 1px solid rgba(178,137,93,0.1); }
-.statement-inner { text-align: center; max-width: 800px; margin: 0 auto; }
-.statement-quote { font-family: var(–font-display); font-size: 2.8rem; font-weight: 400; font-style: italic; line-height: 1.4; color: var(–white); letter-spacing: 0.02em; }
-.statement-attr { font-family: var(–font-body); font-size: 1rem; color: var(–gold); margin-top: 30px; letter-spacing: 0.2em; text-transform: uppercase; }
-
-/* — Gallery Section — */
-.gallery { background: var(–black); }
-.gallery-header { text-align: center; margin-bottom: 60px; }
-.gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 280px; gap: 15px; }
-.gallery-item { position: relative; overflow: hidden; cursor: pointer; }
-.gallery-item-tall { grid-row: span 2; }
-.gallery-item-wide { grid-column: span 2; }
-.gallery-item img { transition: transform 0.8s ease; }
-.gallery-item:hover img { transform: scale(1.08); }
-.gallery-item-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,10,10,0.8) 0%, transparent 60%); display: flex; align-items: flex-end; padding: 25px; opacity: 0; transition: opacity var(–transition); }
-.gallery-item:hover .gallery-item-overlay { opacity: 1; }
-.gallery-item-overlay span { font-family: var(–font-display); font-size: 1.2rem; color: var(–white); letter-spacing: 0.05em; }
-
-/* ============================================
-SPEISEKARTE SLIDESHOW
-============================================ */
-.karte-section { padding: 140px 0; position: relative; overflow: hidden; background: var(–black-light); }
-.karte-section::before { content: ‘’; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 200px; height: 1px; background: linear-gradient(90deg, transparent, var(–gold), transparent); }
-.karte-container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
-.karte-header { text-align: center; margin-bottom: 48px; }
-.karte-title { font-family: var(–font-display); font-size: clamp(28px, 5vw, 44px); font-weight: 400; color: #fff; letter-spacing: -0.01em; line-height: 1.15; margin-bottom: 14px; }
-.karte-title em { font-style: italic; color: var(–gold); }
-.karte-subtitle { font-size: 16px; font-weight: 300; color: var(–gray); letter-spacing: 0.02em; }
-.karte-olive-divider { display: flex; align-items: center; justify-content: center; gap: 16px; margin: 20px 0 0; }
-.karte-olive-line { width: 60px; height: 1px; background: linear-gradient(90deg, transparent, rgba(178,137,93,0.4)); }
-.karte-olive-line:last-child { background: linear-gradient(90deg, rgba(178,137,93,0.4), transparent); }
-.karte-olive-icon { width: 20px; height: 20px; color: rgba(178,137,93,0.4); }
-
-.karte-slideshow { position: relative; width: 100%; user-select: none; -webkit-user-select: none; }
-.karte-viewport { position: relative; width: 100%; max-width: 560px; margin: 0 auto; aspect-ratio: 1654 / 2339; border-radius: 6px; overflow: hidden; background: #0a0a0e; box-shadow: 0 0 0 1px rgba(178,137,93,0.12), 0 20px 60px rgba(0,0,0,0.6), 0 4px 20px rgba(0,0,0,0.4); }
-.karte-viewport::before, .karte-viewport::after { content: ‘’; position: absolute; width: 40px; height: 40px; z-index: 3; pointer-events: none; }
-.karte-viewport::before { top: 8px; left: 8px; border-top: 1.5px solid rgba(178,137,93,0.3); border-left: 1.5px solid rgba(178,137,93,0.3); }
-.karte-viewport::after { bottom: 8px; right: 8px; border-bottom: 1.5px solid rgba(178,137,93,0.3); border-right: 1.5px solid rgba(178,137,93,0.3); }
-
-.karte-track { display: flex; height: 100%; transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); will-change: transform; }
-.karte-track.dragging { transition: none; }
-.karte-slide { min-width: 100%; height: 100%; position: relative; }
-.karte-slide img { width: 100%; height: 100%; object-fit: contain; display: block; background: #fff; }
-
-.karte-nav-btn { position: absolute; top: 50%; transform: translateY(-50%); z-index: 5; width: 48px; height: 48px; border-radius: 50%; border: 1px solid rgba(178,137,93,0.12); background: rgba(10,10,10,0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); color: var(–gold); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; }
-.karte-nav-btn:hover { background: rgba(178,137,93,0.12); border-color: rgba(178,137,93,0.4); box-shadow: 0 0 20px rgba(178,137,93,0.08); }
-.karte-nav-btn:active { transform: translateY(-50%) scale(0.94); }
-.karte-nav-btn.prev { left: -24px; }
-.karte-nav-btn.next { right: -24px; }
-.karte-nav-btn svg { width: 20px; height: 20px; stroke: currentColor; stroke-width: 1.8; fill: none; }
-.karte-nav-btn.disabled { opacity: 0.2; pointer-events: none; }
-
-.karte-indicator { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 28px; }
-.karte-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(178,137,93,0.15); border: 1px solid rgba(178,137,93,0.08); cursor: pointer; transition: all 0.35s ease; }
-.karte-dot.active { background: var(–gold); border-color: var(–gold); box-shadow: 0 0 8px rgba(178,137,93,0.15); transform: scale(1.25); }
-.karte-dot:hover:not(.active) { background: rgba(178,137,93,0.3); }
-
-.karte-counter { text-align: center; margin-top: 16px; font-family: var(–font-body); font-size: 14px; color: var(–gray); letter-spacing: 0.08em; }
-.karte-counter .current-page { color: var(–gold); font-weight: 600; font-size: 16px; }
-.karte-page-label { text-align: center; margin-top: 20px; font-family: var(–font-display); font-size: 15px; font-weight: 400; font-style: italic; color: var(–gray); letter-spacing: 0.02em; min-height: 22px; transition: opacity 0.3s ease; }
-.karte-download { text-align: center; margin-top: 32px; }
-.karte-download a { display: inline-flex; align-items: center; gap: 8px; font-family: var(–font-body); font-size: 14px; font-weight: 500; letter-spacing: 0.06em; color: rgba(178,137,93,0.5); text-decoration: none; padding: 10px 24px; border: 1px solid rgba(178,137,93,0.12); border-radius: 100px; transition: all 0.3s ease; }
-.karte-download a:hover { color: var(–gold); border-color: rgba(178,137,93,0.4); background: rgba(178,137,93,0.06); }
-.karte-download svg { width: 15px; height: 15px; stroke: currentColor; stroke-width: 1.8; fill: none; }
-
-.karte-touch-hint { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 6; display: flex; align-items: center; gap: 8px; padding: 8px 18px; background: rgba(10,10,10,0.8); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(178,137,93,0.12); border-radius: 100px; font-family: var(–font-body); font-size: 12px; color: var(–gray); letter-spacing: 0.06em; pointer-events: none; opacity: 0; animation: karteHintIn 0.6s 1.5s forwards, karteHintOut 0.6s 4.5s forwards; }
-.karte-touch-hint svg { width: 16px; height: 16px; stroke: rgba(178,137,93,0.4); stroke-width: 1.5; fill: none; animation: karteSwipeHand 1.8s 1.8s ease-in-out 2; }
-@keyframes karteHintIn { to { opacity: 1; } }
-@keyframes karteHintOut { to { opacity: 0; visibility: hidden; } }
-@keyframes karteSwipeHand { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(-12px); } }
-
-/* — Contact Section — */
-.contact-section { background: var(–black); }
-.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
-.contact-details { margin-top: 20px; }
-.contact-item { display: flex; gap: 20px; margin-bottom: 35px; }
-.contact-icon { flex-shrink: 0; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(178,137,93,0.3); color: var(–gold); }
-.contact-item h4 { font-family: var(–font-display); font-size: 1.1rem; font-weight: 500; color: var(–white); margin-bottom: 5px; }
-.contact-item p { font-size: 1rem; color: var(–gray-light); font-weight: 300; line-height: 1.6; }
-.reservation-card { background: var(–black-card); border: 1px solid rgba(178,137,93,0.15); padding: 60px 50px; }
-.reservation-phone-cta { text-align: center; }
-.reservation-icon { color: var(–gold); margin-bottom: 25px; }
-.reservation-title { font-family: var(–font-display); font-size: 1.8rem; font-weight: 400; color: var(–white); margin-bottom: 12px; }
-.reservation-desc { font-family: var(–font-body); font-size: 1.05rem; color: var(–gray-light); font-weight: 300; margin-bottom: 35px; line-height: 1.6; }
-.reservation-phone-number { display: block; font-family: var(–font-display); font-size: 2.2rem; font-weight: 400; color: var(–gold); letter-spacing: 0.05em; margin-bottom: 30px; transition: color var(–transition-fast); }
-.reservation-phone-number:hover { color: var(–gold-light); }
-.reservation-hours { font-family: var(–font-body); font-size: 0.85rem; color: var(–gray); margin-top: 20px; letter-spacing: 0.05em; }
-
-/* — Footer — */
-.footer { padding: 80px 0 40px; background: var(–black-light); border-top: 1px solid rgba(178,137,93,0.1); }
-.footer-inner { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 60px; }
-.footer-logo-wrap { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-.footer-logo-icon { height: 40px; width: 40px; border-radius: 50%; object-fit: cover; opacity: 0.7; }
-.footer-logo-text { font-family: var(–font-display); font-size: 1rem; font-weight: 500; letter-spacing: 0.25em; color: var(–white); opacity: 0.6; }
-.footer-tagline { font-size: 0.95rem; color: var(–gray); font-weight: 300; }
-.footer-links { display: flex; gap: 80px; }
-.footer-col { display: flex; flex-direction: column; gap: 10px; }
-.footer-col h5 { font-family: var(–font-display); font-size: 1rem; font-weight: 500; color: var(–white); margin-bottom: 5px; letter-spacing: 0.05em; }
-.footer-col a { font-size: 0.95rem; color: var(–gray); font-weight: 300; transition: color var(–transition-fast); }
-.footer-col a:hover { color: var(–gold); }
-.footer-bottom { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 30px; text-align: center; }
-.footer-bottom p { font-size: 0.85rem; color: var(–gray-dark); letter-spacing: 0.05em; }
-
-/* — Flying Food — */
-.flying-food { position: fixed; pointer-events: none; z-index: 50; will-change: transform, opacity; opacity: 0; }
-.flying-food svg { width: 100%; height: 100%; filter: drop-shadow(0 8px 24px rgba(0,0,0,0.4)); }
-.fly-olive-branch { width: 180px; height: 180px; }
-.fly-lemon { width: 140px; height: 140px; }
-.fly-laurel { width: 160px; height: 160px; }
-.fly-herb { width: 120px; height: 120px; }
-
-/* — Scroll Progress Bar — */
-.scroll-progress { position: fixed; top: 0; left: 0; width: 0%; height: 2px; background: linear-gradient(90deg, var(–gold), var(–gold-light)); z-index: 10001; transition: none; }
-
-/* — Reveal Animations — */
-.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
-.reveal.visible { opacity: 1; transform: translateY(0); }
-.reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.8s ease, transform 0.8s ease; }
-.reveal-left.visible { opacity: 1; transform: translateX(0); }
-
-/* — Mobile Floating CTA — */
-.mobile-float-cta { display: none; }
-.mobile-menu-inner { text-align: center; width: 100%; padding: 0 40px; }
-.mobile-menu-brand { display: none; }
-.mobile-menu-cta { display: none; }
-.mobile-menu-hours { display: none; }
-
-/* ============================================
-RESPONSIVE
-============================================ */
-@media (max-width: 1024px) {
-.container { padding: 0 30px; }
-.section { padding: 100px 0; }
-.hero-title-accent { font-size: 3.8rem; }
-.section-title { font-size: 2.6rem; }
-.about-grid { gap: 50px; }
-.cuisine-grid { grid-template-columns: repeat(2, 1fr); }
-.gallery-grid { grid-auto-rows: 220px; }
-.contact-grid { gap: 50px; }
-.fly-olive-branch { width: 140px; height: 140px; }
-.fly-lemon { width: 110px; height: 110px; }
-.fly-laurel { width: 130px; height: 130px; }
-.fly-herb { width: 100px; height: 100px; }
-}
-
-@media (max-width: 768px) {
-.flying-food { display: none !important; }
-.container { padding: 0 24px; }
-.section { padding: 80px 0; }
-.nav-links, .nav-cta { display: none; }
-.nav-toggle { display: flex; }
-.nav-inner { padding: 0 20px; }
-.nav { padding: 16px 0; }
-.nav.scrolled { padding: 10px 0; }
-.mobile-menu { padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); }
-.mobile-menu-brand { display: block; margin-bottom: 40px; }
-.mobile-menu-icon { height: 70px; width: 70px; border-radius: 50%; object-fit: cover; opacity: 0.5; }
-.mobile-menu-links { margin-bottom: 40px; }
-.mobile-menu-links li { margin-bottom: 24px; }
-.mobile-menu-links a { font-size: 2rem; letter-spacing: 0.08em; }
-.mobile-menu-cta { display: block; margin-bottom: 30px; }
-.mobile-cta-btn { display: inline-flex; align-items: center; gap: 10px; font-family: var(–font-body); font-size: 1rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(–black); background: var(–gold); padding: 16px 40px; transition: all var(–transition); }
-.mobile-menu-hours { display: block; }
-.mobile-menu-hours p { font-family: var(–font-body); font-size: 0.85rem; color: var(–gray); letter-spacing: 0.05em; line-height: 1.8; }
-.mobile-float-cta { display: block; position: fixed; bottom: 0; left: 0; right: 0; z-index: 998; padding: 12px 20px calc(12px + env(safe-area-inset-bottom)); background: linear-gradient(to top, rgba(10,10,10,0.98) 60%, transparent); transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94); pointer-events: none; }
-.mobile-float-cta.visible { transform: translateY(0); pointer-events: auto; }
-.mobile-float-btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 16px 20px; background: var(–gold); color: var(–black); font-family: var(–font-body); font-size: 0.95rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; text-align: center; border-radius: 0; transition: all var(–transition-fast); }
-.mobile-float-btn:active { background: var(–gold-dark); transform: scale(0.98); }
-.hero { min-height: 100svh; }
-.hero-content { padding: 0 24px; padding-bottom: 80px; }
-.hero-subtitle { font-size: 0.85rem; letter-spacing: 0.4em; margin-bottom: 16px; }
-.hero-title-line { font-size: 1.3rem; margin-bottom: 4px; }
-.hero-title-accent { font-size: 2.6rem; letter-spacing: 0.12em; }
-.hero-desc { font-size: 1rem; margin-bottom: 36px; padding: 0 10px; }
-.hero-actions { flex-direction: column; align-items: stretch; gap: 12px; padding: 0 10px; }
-.hero-actions .btn { text-align: center; padding: 16px 20px; font-size: 0.9rem; }
-.hero-scroll { bottom: 24px; }
-.hero-scroll-line { height: 40px; }
-.section-title { font-size: 2rem; margin-bottom: 24px; }
-.section-label { font-size: 0.8rem; letter-spacing: 0.25em; margin-bottom: 12px; }
-.about-grid { grid-template-columns: 1fr; gap: 50px; }
-.about-images { max-width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.about-img-main { width: 100%; aspect-ratio: 3/4; }
-.about-img-accent { position: relative; bottom: auto; right: auto; width: 100%; aspect-ratio: 3/4; border: none; box-shadow: none; }
-.about-text { padding-left: 0; }
-.about-desc { font-size: 1.05rem; line-height: 1.7; }
-.about-signature { margin-top: 30px; }
-.cuisine-header { margin-bottom: 40px; }
-.cuisine-grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; gap: 16px; padding-bottom: 20px; margin: 0 -24px; padding-left: 24px; padding-right: 24px; scrollbar-width: none; }
-.cuisine-grid::-webkit-scrollbar { display: none; }
-.cuisine-card { flex: 0 0 82%; scroll-snap-align: center; max-width: 340px; }
-.cuisine-card-content { padding: 24px; }
-.cuisine-card-content h3 { font-size: 1.3rem; }
-.cuisine-card-content p { font-size: 0.95rem; }
-.statement { padding: 80px 0; }
-.statement-quote { font-size: 1.6rem; line-height: 1.5; }
-.statement-attr { font-size: 0.85rem; margin-top: 20px; }
-.gallery-header { margin-bottom: 40px; }
-.gallery-grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; gap: 12px; margin: 0 -24px; padding: 0 24px 16px; scrollbar-width: none; }
-.gallery-grid::-webkit-scrollbar { display: none; }
-.gallery-item { flex: 0 0 78%; height: 280px; scroll-snap-align: center; border-radius: 4px; }
-.gallery-item-tall, .gallery-item-wide { grid-row: unset; grid-column: unset; }
-.gallery-item-tall { height: 280px; }
-.gallery-item-overlay { opacity: 1; background: linear-gradient(to top, rgba(10,10,10,0.7) 0%, transparent 40%); }
-.gallery-item-overlay span { font-size: 1rem; }
-/* Karte slideshow mobile */
-.karte-section { padding: 80px 0; }
-.karte-header { margin-bottom: 32px; }
-.karte-viewport { border-radius: 4px; max-width: 100%; }
-.karte-nav-btn { width: 40px; height: 40px; }
-.karte-nav-btn.prev { left: 6px; }
-.karte-nav-btn.next { right: 6px; }
-.karte-nav-btn svg { width: 17px; height: 17px; }
-.karte-dot { width: 7px; height: 7px; }
-.karte-indicator { gap: 8px; margin-top: 20px; }
-.karte-page-label { font-size: 13px; }
-/* Contact mobile */
-.contact-grid { grid-template-columns: 1fr; gap: 50px; }
-.contact-item { margin-bottom: 28px; }
-.contact-icon { width: 44px; height: 44px; }
-.contact-icon svg { width: 20px; height: 20px; }
-.contact-item h4 { font-size: 1rem; }
-.contact-item p { font-size: 0.95rem; }
-.reservation-card { padding: 40px 24px; }
-.reservation-title { font-size: 1.5rem; }
-.reservation-desc { font-size: 1rem; margin-bottom: 28px; }
-.reservation-phone-number { font-size: 1.7rem; margin-bottom: 24px; }
-.footer { padding: 60px 0 40px; padding-bottom: calc(40px + 70px); }
-.footer-inner { flex-direction: column; gap: 40px; }
-.footer-links { flex-direction: column; gap: 30px; }
-.footer-col { gap: 8px; }
-.footer-bottom { padding-top: 24px; }
-.footer-bottom p { font-size: 0.8rem; }
-.reveal { transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
-.reveal-left { transform: translateX(-20px); transition: opacity 0.5s ease, transform 0.5s ease; }
-}
-
-@media (max-width: 400px) {
-.karte-container { padding: 0 12px; }
-.karte-nav-btn.prev { left: 4px; }
-.karte-nav-btn.next { right: 4px; }
-}
-
-@media (max-width: 380px) {
-.container { padding: 0 16px; }
-.hero-title-accent { font-size: 2.1rem; letter-spacing: 0.08em; }
-.hero-title-line { font-size: 1.1rem; }
-.section-title { font-size: 1.7rem; }
-.mobile-menu-links a { font-size: 1.6rem; }
-.cuisine-card { flex: 0 0 88%; }
-.gallery-item { flex: 0 0 85%; height: 240px; }
-.reservation-phone-number { font-size: 1.4rem; }
-.statement-quote { font-size: 1.4rem; }
-}
-
-@supports (padding: env(safe-area-inset-bottom)) {
-.mobile-float-cta { padding-bottom: calc(12px + env(safe-area-inset-bottom)); }
-.footer { padding-bottom: calc(40px + 70px + env(safe-area-inset-bottom)); }
-}
-</style>
+<link rel="stylesheet" href="styles.css">
 
 </head>
 <body>
 
-```
-<!-- Scroll Progress Bar -->
-<div class="scroll-progress" id="scrollProgress"></div>
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress"></div>
 
-<!-- Flying Food Elements (Desktop Only) -->
-<div class="flying-food fly-olive-branch" id="flyOlive" aria-hidden="true">
-    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M30 170 Q60 130 100 100 Q140 70 170 30" stroke="#96724a" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.7"/>
-        <ellipse cx="65" cy="125" rx="14" ry="8" transform="rotate(-40 65 125)" fill="#6b8f3c" opacity="0.8"/>
-        <ellipse cx="58" cy="133" rx="12" ry="7" transform="rotate(-50 58 133)" fill="#7da044" opacity="0.6"/>
-        <ellipse cx="90" cy="105" rx="14" ry="8" transform="rotate(-35 90 105)" fill="#6b8f3c" opacity="0.8"/>
-        <ellipse cx="83" cy="112" rx="12" ry="7" transform="rotate(-45 83 112)" fill="#7da044" opacity="0.6"/>
-        <ellipse cx="120" cy="80" rx="14" ry="8" transform="rotate(-30 120 80)" fill="#6b8f3c" opacity="0.8"/>
-        <ellipse cx="113" cy="87" rx="12" ry="7" transform="rotate(-40 113 87)" fill="#7da044" opacity="0.6"/>
-        <ellipse cx="148" cy="55" rx="13" ry="7" transform="rotate(-25 148 55)" fill="#6b8f3c" opacity="0.8"/>
-        <circle cx="72" cy="120" r="6" fill="#2d1f0e" opacity="0.75"/>
-        <circle cx="70" cy="118" r="2" fill="#5a3d1a" opacity="0.5"/>
-        <circle cx="108" cy="92" r="5.5" fill="#2d1f0e" opacity="0.75"/>
-        <circle cx="106" cy="90" r="1.8" fill="#5a3d1a" opacity="0.5"/>
-        <circle cx="142" cy="62" r="5" fill="#2d1f0e" opacity="0.7"/>
-        <circle cx="140" cy="60" r="1.6" fill="#5a3d1a" opacity="0.5"/>
-    </svg>
-</div>
-<div class="flying-food fly-lemon" id="flyLemon" aria-hidden="true">
-    <svg viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="80" cy="80" r="65" fill="#fde68a" opacity="0.85"/><circle cx="80" cy="80" r="55" fill="#fef3c7" opacity="0.9"/><circle cx="80" cy="80" r="8" fill="#fde68a" opacity="0.7"/>
-        <path d="M80 25 L80 80" stroke="#fde68a" stroke-width="2" opacity="0.5"/><path d="M80 80 L80 135" stroke="#fde68a" stroke-width="2" opacity="0.5"/><path d="M25 80 L80 80" stroke="#fde68a" stroke-width="2" opacity="0.5"/><path d="M80 80 L135 80" stroke="#fde68a" stroke-width="2" opacity="0.5"/>
-        <path d="M41 41 L80 80" stroke="#fde68a" stroke-width="2" opacity="0.5"/><path d="M80 80 L119 119" stroke="#fde68a" stroke-width="2" opacity="0.5"/><path d="M119 41 L80 80" stroke="#fde68a" stroke-width="2" opacity="0.5"/><path d="M80 80 L41 119" stroke="#fde68a" stroke-width="2" opacity="0.5"/>
-        <path d="M80 28 Q90 52 80 80 Q70 52 80 28Z" fill="#fde68a" opacity="0.4"/><path d="M80 132 Q90 108 80 80 Q70 108 80 132Z" fill="#fde68a" opacity="0.4"/><path d="M28 80 Q52 90 80 80 Q52 70 28 80Z" fill="#fde68a" opacity="0.4"/><path d="M132 80 Q108 90 80 80 Q108 70 132 80Z" fill="#fde68a" opacity="0.4"/>
-        <circle cx="80" cy="80" r="64" stroke="#d97706" stroke-width="2.5" fill="none" opacity="0.5"/>
-    </svg>
-</div>
-<div class="flying-food fly-laurel" id="flyLaurel" aria-hidden="true">
-    <svg viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M90 170 Q90 140 90 110 Q90 80 90 50 Q90 30 90 10" stroke="#96724a" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.5"/>
-        <ellipse cx="65" cy="138" rx="20" ry="9" transform="rotate(25 65 138)" fill="#6b8f3c" opacity="0.55"/><ellipse cx="115" cy="138" rx="20" ry="9" transform="rotate(-25 115 138)" fill="#6b8f3c" opacity="0.55"/>
-        <ellipse cx="58" cy="110" rx="18" ry="8" transform="rotate(30 58 110)" fill="#7da044" opacity="0.5"/><ellipse cx="122" cy="110" rx="18" ry="8" transform="rotate(-30 122 110)" fill="#7da044" opacity="0.5"/>
-        <ellipse cx="55" cy="82" rx="16" ry="7" transform="rotate(35 55 82)" fill="#6b8f3c" opacity="0.5"/><ellipse cx="125" cy="82" rx="16" ry="7" transform="rotate(-35 125 82)" fill="#6b8f3c" opacity="0.5"/>
-        <ellipse cx="58" cy="55" rx="14" ry="6" transform="rotate(40 58 55)" fill="#7da044" opacity="0.45"/><ellipse cx="122" cy="55" rx="14" ry="6" transform="rotate(-40 122 55)" fill="#7da044" opacity="0.45"/>
-        <ellipse cx="65" cy="32" rx="12" ry="5" transform="rotate(45 65 32)" fill="#6b8f3c" opacity="0.4"/><ellipse cx="115" cy="32" rx="12" ry="5" transform="rotate(-45 115 32)" fill="#6b8f3c" opacity="0.4"/>
-    </svg>
-</div>
-<div class="flying-food fly-herb" id="flyHerb" aria-hidden="true">
-    <svg viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M70 130 Q72 100 70 70 Q68 40 70 10" stroke="#6b8f3c" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.6"/>
-        <ellipse cx="58" cy="115" rx="10" ry="3.5" transform="rotate(30 58 115)" fill="#7da044" opacity="0.65"/><ellipse cx="82" cy="108" rx="10" ry="3.5" transform="rotate(-30 82 108)" fill="#7da044" opacity="0.65"/>
-        <ellipse cx="56" cy="95" rx="9" ry="3" transform="rotate(35 56 95)" fill="#6b8f3c" opacity="0.6"/><ellipse cx="84" cy="88" rx="9" ry="3" transform="rotate(-35 84 88)" fill="#6b8f3c" opacity="0.6"/>
-        <ellipse cx="58" cy="75" rx="8" ry="2.8" transform="rotate(38 58 75)" fill="#7da044" opacity="0.55"/><ellipse cx="82" cy="68" rx="8" ry="2.8" transform="rotate(-38 82 68)" fill="#7da044" opacity="0.55"/>
-        <ellipse cx="60" cy="55" rx="7" ry="2.5" transform="rotate(40 60 55)" fill="#6b8f3c" opacity="0.5"/><ellipse cx="80" cy="48" rx="7" ry="2.5" transform="rotate(-40 80 48)" fill="#6b8f3c" opacity="0.5"/>
-        <ellipse cx="63" cy="35" rx="6" ry="2" transform="rotate(42 63 35)" fill="#7da044" opacity="0.45"/><ellipse cx="77" cy="28" rx="6" ry="2" transform="rotate(-42 77 28)" fill="#7da044" opacity="0.45"/>
-        <ellipse cx="68" cy="18" rx="5" ry="1.8" transform="rotate(45 68 18)" fill="#6b8f3c" opacity="0.4"/>
-    </svg>
-</div>
-
-<!-- Preloader -->
-<div class="preloader" id="preloader"><div class="preloader-inner"><div class="preloader-logo">AKROPOLIS</div><div class="preloader-line"></div></div></div>
-
-<!-- Navigation -->
-<nav class="nav" id="nav">
-    <div class="nav-inner">
-        <a href="#hero" class="nav-logo">
-            <img class="nav-logo-icon" src="images/logo-akropolis.jpg" alt="Akropolis Logo">
-            <span class="nav-logo-text">AKROPOLIS</span>
-        </a>
-        <ul class="nav-links">
-            <li><a href="#about">Über Uns</a></li>
-            <li><a href="#cuisine">Küche</a></li>
-            <li><a href="#gallery">Galerie</a></li>
-            <li><a href="#menu">Speisekarte</a></li>
-            <li><a href="#contact">Kontakt</a></li>
-        </ul>
-        <a href="tel:+4924519116046" class="nav-cta">Reservieren</a>
-        <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen"><span></span><span></span><span></span></button>
+    <!-- Flying Food Elements (Desktop Only) -->
+    <!-- 1: Olive Branch -->
+    <div class="flying-food fly-olive-branch" id="flyOlive" aria-hidden="true">
+        <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M30 170 Q60 130 100 100 Q140 70 170 30" stroke="#96724a" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.7"/>
+            <ellipse cx="65" cy="125" rx="14" ry="8" transform="rotate(-40 65 125)" fill="#6b8f3c" opacity="0.8"/>
+            <ellipse cx="58" cy="133" rx="12" ry="7" transform="rotate(-50 58 133)" fill="#7da044" opacity="0.6"/>
+            <ellipse cx="90" cy="105" rx="14" ry="8" transform="rotate(-35 90 105)" fill="#6b8f3c" opacity="0.8"/>
+            <ellipse cx="83" cy="112" rx="12" ry="7" transform="rotate(-45 83 112)" fill="#7da044" opacity="0.6"/>
+            <ellipse cx="120" cy="80" rx="14" ry="8" transform="rotate(-30 120 80)" fill="#6b8f3c" opacity="0.8"/>
+            <ellipse cx="113" cy="87" rx="12" ry="7" transform="rotate(-40 113 87)" fill="#7da044" opacity="0.6"/>
+            <ellipse cx="148" cy="55" rx="13" ry="7" transform="rotate(-25 148 55)" fill="#6b8f3c" opacity="0.8"/>
+            <circle cx="72" cy="120" r="6" fill="#2d1f0e" opacity="0.75"/>
+            <circle cx="70" cy="118" r="2" fill="#5a3d1a" opacity="0.5"/>
+            <circle cx="108" cy="92" r="5.5" fill="#2d1f0e" opacity="0.75"/>
+            <circle cx="106" cy="90" r="1.8" fill="#5a3d1a" opacity="0.5"/>
+            <circle cx="142" cy="62" r="5" fill="#2d1f0e" opacity="0.7"/>
+            <circle cx="140" cy="60" r="1.6" fill="#5a3d1a" opacity="0.5"/>
+        </svg>
     </div>
-</nav>
 
-<!-- Mobile Menu -->
-<div class="mobile-menu" id="mobileMenu">
-    <div class="mobile-menu-inner">
-        <div class="mobile-menu-brand"><img class="mobile-menu-icon" src="images/logo-akropolis.jpg" alt="Akropolis Logo"></div>
-        <ul class="mobile-menu-links">
-            <li><a href="#about">Über Uns</a></li>
-            <li><a href="#cuisine">Küche</a></li>
-            <li><a href="#gallery">Galerie</a></li>
-            <li><a href="#menu">Speisekarte</a></li>
-            <li><a href="#contact">Kontakt</a></li>
-        </ul>
-        <div class="mobile-menu-cta">
-            <a href="tel:+4924519116046" class="mobile-cta-btn">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                Jetzt Reservieren
+    <!-- 2: Lemon Slice -->
+    <div class="flying-food fly-lemon" id="flyLemon" aria-hidden="true">
+        <svg viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="80" cy="80" r="65" fill="#fde68a" opacity="0.85"/>
+            <circle cx="80" cy="80" r="55" fill="#fef3c7" opacity="0.9"/>
+            <circle cx="80" cy="80" r="8" fill="#fde68a" opacity="0.7"/>
+            <path d="M80 25 L80 80" stroke="#fde68a" stroke-width="2" opacity="0.5"/>
+            <path d="M80 80 L80 135" stroke="#fde68a" stroke-width="2" opacity="0.5"/>
+            <path d="M25 80 L80 80" stroke="#fde68a" stroke-width="2" opacity="0.5"/>
+            <path d="M80 80 L135 80" stroke="#fde68a" stroke-width="2" opacity="0.5"/>
+            <path d="M41 41 L80 80" stroke="#fde68a" stroke-width="2" opacity="0.5"/>
+            <path d="M80 80 L119 119" stroke="#fde68a" stroke-width="2" opacity="0.5"/>
+            <path d="M119 41 L80 80" stroke="#fde68a" stroke-width="2" opacity="0.5"/>
+            <path d="M80 80 L41 119" stroke="#fde68a" stroke-width="2" opacity="0.5"/>
+            <path d="M80 28 Q90 52 80 80 Q70 52 80 28Z" fill="#fde68a" opacity="0.4"/>
+            <path d="M80 132 Q90 108 80 80 Q70 108 80 132Z" fill="#fde68a" opacity="0.4"/>
+            <path d="M28 80 Q52 90 80 80 Q52 70 28 80Z" fill="#fde68a" opacity="0.4"/>
+            <path d="M132 80 Q108 90 80 80 Q108 70 132 80Z" fill="#fde68a" opacity="0.4"/>
+            <circle cx="80" cy="80" r="64" stroke="#d97706" stroke-width="2.5" fill="none" opacity="0.5"/>
+        </svg>
+    </div>
+
+    <!-- 3: Laurel Fragment -->
+    <div class="flying-food fly-laurel" id="flyLaurel" aria-hidden="true">
+        <svg viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M90 170 Q90 140 90 110 Q90 80 90 50 Q90 30 90 10" stroke="#96724a" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.5"/>
+            <path d="M90 150 Q60 140 50 120" stroke="none" fill="#6b8f3c" opacity="0.6"/>
+            <ellipse cx="65" cy="138" rx="20" ry="9" transform="rotate(25 65 138)" fill="#6b8f3c" opacity="0.55"/>
+            <path d="M90 150 Q120 140 130 120" stroke="none" fill="#6b8f3c" opacity="0.6"/>
+            <ellipse cx="115" cy="138" rx="20" ry="9" transform="rotate(-25 115 138)" fill="#6b8f3c" opacity="0.55"/>
+            <ellipse cx="58" cy="110" rx="18" ry="8" transform="rotate(30 58 110)" fill="#7da044" opacity="0.5"/>
+            <ellipse cx="122" cy="110" rx="18" ry="8" transform="rotate(-30 122 110)" fill="#7da044" opacity="0.5"/>
+            <ellipse cx="55" cy="82" rx="16" ry="7" transform="rotate(35 55 82)" fill="#6b8f3c" opacity="0.5"/>
+            <ellipse cx="125" cy="82" rx="16" ry="7" transform="rotate(-35 125 82)" fill="#6b8f3c" opacity="0.5"/>
+            <ellipse cx="58" cy="55" rx="14" ry="6" transform="rotate(40 58 55)" fill="#7da044" opacity="0.45"/>
+            <ellipse cx="122" cy="55" rx="14" ry="6" transform="rotate(-40 122 55)" fill="#7da044" opacity="0.45"/>
+            <ellipse cx="65" cy="32" rx="12" ry="5" transform="rotate(45 65 32)" fill="#6b8f3c" opacity="0.4"/>
+            <ellipse cx="115" cy="32" rx="12" ry="5" transform="rotate(-45 115 32)" fill="#6b8f3c" opacity="0.4"/>
+        </svg>
+    </div>
+
+    <!-- 4: Rosemary Sprig -->
+    <div class="flying-food fly-herb" id="flyHerb" aria-hidden="true">
+        <svg viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M70 130 Q72 100 70 70 Q68 40 70 10" stroke="#6b8f3c" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.6"/>
+            <ellipse cx="58" cy="115" rx="10" ry="3.5" transform="rotate(30 58 115)" fill="#7da044" opacity="0.65"/>
+            <ellipse cx="82" cy="108" rx="10" ry="3.5" transform="rotate(-30 82 108)" fill="#7da044" opacity="0.65"/>
+            <ellipse cx="56" cy="95" rx="9" ry="3" transform="rotate(35 56 95)" fill="#6b8f3c" opacity="0.6"/>
+            <ellipse cx="84" cy="88" rx="9" ry="3" transform="rotate(-35 84 88)" fill="#6b8f3c" opacity="0.6"/>
+            <ellipse cx="58" cy="75" rx="8" ry="2.8" transform="rotate(38 58 75)" fill="#7da044" opacity="0.55"/>
+            <ellipse cx="82" cy="68" rx="8" ry="2.8" transform="rotate(-38 82 68)" fill="#7da044" opacity="0.55"/>
+            <ellipse cx="60" cy="55" rx="7" ry="2.5" transform="rotate(40 60 55)" fill="#6b8f3c" opacity="0.5"/>
+            <ellipse cx="80" cy="48" rx="7" ry="2.5" transform="rotate(-40 80 48)" fill="#6b8f3c" opacity="0.5"/>
+            <ellipse cx="63" cy="35" rx="6" ry="2" transform="rotate(42 63 35)" fill="#7da044" opacity="0.45"/>
+            <ellipse cx="77" cy="28" rx="6" ry="2" transform="rotate(-42 77 28)" fill="#7da044" opacity="0.45"/>
+            <ellipse cx="68" cy="18" rx="5" ry="1.8" transform="rotate(45 68 18)" fill="#6b8f3c" opacity="0.4"/>
+        </svg>
+    </div>
+
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-logo">AKROPOLIS</div>
+            <div class="preloader-line"></div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="nav-inner">
+            <a href="#hero" class="nav-logo">
+                <img class="nav-logo-icon" src="images/logo-akropolis.jpg" alt="Akropolis Logo">
+                <span class="nav-logo-text">AKROPOLIS</span>
             </a>
+            <ul class="nav-links">
+                <li><a href="#about">Über Uns</a></li>
+                <li><a href="#cuisine">Küche</a></li>
+                <li><a href="#gallery">Galerie</a></li>
+                <li><a href="#menu">Speisekarte</a></li>
+                <li><a href="#contact">Kontakt</a></li>
+            </ul>
+            <a href="tel:+4924519116046" class="nav-cta">Reservieren</a>
+            <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
-        <div class="mobile-menu-hours"><p>Di–Sa: 17:30–22:00</p><p>So: 11:30–14:30 & 17:30–22:00</p></div>
-    </div>
-</div>
+    </nav>
 
-<!-- Mobile Floating CTA -->
-<div class="mobile-float-cta" id="mobileFloatCta">
-    <a href="tel:+4924519116046" class="mobile-float-btn">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-        <span>Reservieren</span>
-    </a>
-</div>
-
-<!-- Hero Section -->
-<section class="hero" id="hero">
-    <div class="hero-bg"><img src="images/feast-table.jpg" alt="Akropolis Dining Experience"></div>
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-        <p class="hero-subtitle reveal">Griechisches Restaurant</p>
-        <h1 class="hero-title reveal">
-            <span class="hero-title-line">Willkommen im</span>
-            <span class="hero-title-accent">Akropolis</span>
-        </h1>
-        <p class="hero-desc reveal">Authentische mediterrane Küche — seit Generationen mit Leidenschaft zubereitet</p>
-        <div class="hero-actions reveal">
-            <a href="#cuisine" class="btn btn-primary">Entdecken</a>
-            <a href="tel:+4924519116046" class="btn btn-outline">Tisch reservieren</a>
-        </div>
-    </div>
-    <div class="hero-scroll"><div class="hero-scroll-line"></div></div>
-</section>
-
-<!-- About Section -->
-<section class="section about" id="about">
-    <div class="container">
-        <div class="about-grid">
-            <div class="about-images">
-                <div class="about-img about-img-main reveal-left"><img src="images/exterior.jpg" alt="Akropolis Restaurant Außenansicht"></div>
-                <div class="about-img about-img-accent reveal-left" style="animation-delay: 0.2s"><img src="images/medusa-lamp.jpg" alt="Elegantes Interieur"></div>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-inner">
+            <div class="mobile-menu-brand">
+                <img class="mobile-menu-icon" src="images/logo-akropolis.jpg" alt="Akropolis Logo">
             </div>
-            <div class="about-text">
-                <p class="section-label reveal">Über Uns</p>
-                <h2 class="section-title reveal">Wo Tradition auf <em>Leidenschaft</em> trifft</h2>
-                <p class="about-desc reveal">Im Herzen von Geilenkirchen vereinen wir die Aromen Griechenlands mit der Wärme mediterraner Gastfreundschaft. Jedes Gericht erzählt eine Geschichte — von sonnenverwöhnten Olivenhainen, kristallklarem Meer und Familienrezepten, die seit Generationen weitergegeben werden.</p>
-                <p class="about-desc reveal">Vasiliki und Georgios Giannoulas laden Sie ein, den Geschmack Griechenlands zu erleben — in einer Atmosphäre, die Eleganz und Herzlichkeit vereint.</p>
-                <div class="about-signature reveal"><span class="signature-line"></span><span class="signature-text">Vasiliki & Georgios Giannoulas</span></div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Cuisine Section -->
-<section class="section cuisine" id="cuisine">
-    <div class="cuisine-bg"><img src="images/greece-sea.jpg" alt="Griechisches Meer"></div>
-    <div class="cuisine-overlay"></div>
-    <div class="container">
-        <div class="cuisine-header">
-            <p class="section-label reveal">Unsere Küche</p>
-            <h2 class="section-title section-title-light reveal">Der Geschmack des <em>Mittelmeers</em></h2>
-        </div>
-        <div class="cuisine-grid">
-            <div class="cuisine-card reveal">
-                <div class="cuisine-card-img"><img src="images/bruschetta.jpg" alt="Vorspeisen"></div>
-                <div class="cuisine-card-content"><h3>Vorspeisen & Mezze</h3><p>Von knusprigem Saganaki bis zu cremigem Tzatziki — unsere Mezze-Auswahl ist eine Reise durch die Aromen Griechenlands.</p></div>
-            </div>
-            <div class="cuisine-card reveal" style="animation-delay: 0.15s">
-                <div class="cuisine-card-img"><img src="images/octopus.jpg" alt="Meeresfrüchte"></div>
-                <div class="cuisine-card-content"><h3>Vom Meer</h3><p>Gegrillter Oktopus, frische Calamares und feinste Fischplatten — zubereitet wie an der griechischen Küste.</p></div>
-            </div>
-            <div class="cuisine-card reveal" style="animation-delay: 0.3s">
-                <div class="cuisine-card-img"><img src="images/tomahawk.jpg" alt="Vom Grill"></div>
-                <div class="cuisine-card-content"><h3>Vom Grill</h3><p>Saftige Souvlaki, zartes Lammfleisch und unser legendäres Tomahawk Steak — perfekt über Kohle gegrillt.</p></div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Statement Section -->
-<section class="section statement">
-    <div class="container">
-        <div class="statement-inner reveal">
-            <blockquote class="statement-quote">„Kochen ist Liebe, die man schmecken kann"</blockquote>
-            <p class="statement-attr">— Unsere Philosophie</p>
-        </div>
-    </div>
-</section>
-
-<!-- Gallery Section -->
-<section class="section gallery" id="gallery">
-    <div class="container">
-        <div class="gallery-header">
-            <p class="section-label reveal">Galerie</p>
-            <h2 class="section-title reveal">Momente & <em>Impressionen</em></h2>
-        </div>
-        <div class="gallery-grid">
-            <div class="gallery-item gallery-item-tall reveal"><img src="images/tomahawk-seasoning.jpg" alt="Tomahawk Steak"><div class="gallery-item-overlay"><span>Tomahawk Steak</span></div></div>
-            <div class="gallery-item reveal" style="animation-delay:0.1s"><img src="images/cocktail.jpg" alt="Signature Cocktail"><div class="gallery-item-overlay"><span>Signature Cocktails</span></div></div>
-            <div class="gallery-item reveal" style="animation-delay:0.2s"><img src="images/table-setting.jpg" alt="Tischgedeck"><div class="gallery-item-overlay"><span>Ambiance</span></div></div>
-            <div class="gallery-item gallery-item-wide reveal" style="animation-delay:0.15s"><img src="images/cocktails.jpg" alt="Bar"><div class="gallery-item-overlay"><span>Bar & Lounge</span></div></div>
-            <div class="gallery-item reveal" style="animation-delay:0.25s"><img src="images/lifestyle-fun.jpg" alt="Gäste"><div class="gallery-item-overlay"><span>Unvergessliche Abende</span></div></div>
-            <div class="gallery-item reveal" style="animation-delay:0.3s"><img src="images/lifestyle-bw.jpg" alt="Lifestyle"><div class="gallery-item-overlay"><span>Lebensfreude</span></div></div>
-        </div>
-    </div>
-</section>
-
-<!-- ============================================
-     SPEISEKARTE SLIDESHOW (replaces old tab menu)
-     ============================================ -->
-<section class="karte-section" id="menu">
-    <div class="karte-container">
-        <div class="karte-header">
-            <p class="section-label reveal">Speisekarte</p>
-            <h2 class="karte-title reveal">Unsere <em>Küche</em></h2>
-            <p class="karte-subtitle reveal">Von Vorspeisen bis Dessert — blättern Sie durch unsere Karte</p>
-            <div class="karte-olive-divider">
-                <span class="karte-olive-line"></span>
-                <svg class="karte-olive-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 3C7 8 4 14 4 18c0 2 1 3 2 3s3-2 6-8c3 6 5 8 6 8s2-1 2-3c0-4-3-10-8-15z"/><line x1="12" y1="3" x2="12" y2="22" stroke-dasharray="2 3"/></svg>
-                <span class="karte-olive-line"></span>
-            </div>
-        </div>
-        <div class="karte-slideshow" id="karteSlideshow">
-            <div class="karte-viewport">
-                <div class="karte-track" id="karteTrack">
-                    <div class="karte-slide"><img src="images/karte-page-1.jpg" alt="Speisekarte — Vorspeisen" loading="eager"></div>
-                    <div class="karte-slide"><img src="images/karte-page-2.jpg" alt="Speisekarte — Salate, Suppen & Beilagen" loading="lazy"></div>
-                    <div class="karte-slide"><img src="images/karte-page-3.jpg" alt="Speisekarte — Spezialitäten vom Grill" loading="lazy"></div>
-                    <div class="karte-slide"><img src="images/karte-page-4.jpg" alt="Speisekarte — Spezialitäten vom Grill" loading="lazy"></div>
-                    <div class="karte-slide"><img src="images/karte-page-5.jpg" alt="Speisekarte — Aus dem Ofen & Fisch" loading="lazy"></div>
-                    <div class="karte-slide"><img src="images/karte-page-6.jpg" alt="Speisekarte — Spezialgerichte" loading="lazy"></div>
-                    <div class="karte-slide"><img src="images/karte-page-7.jpg" alt="Speisekarte — Pizza & Kindergerichte" loading="lazy"></div>
-                    <div class="karte-slide"><img src="images/karte-page-8.jpg" alt="Speisekarte — Getränke & Bier" loading="lazy"></div>
-                    <div class="karte-slide"><img src="images/karte-page-9.jpg" alt="Speisekarte — Weine" loading="lazy"></div>
-                    <div class="karte-slide"><img src="images/karte-page-10.jpg" alt="Speisekarte — Getränke & Öffnungszeiten" loading="lazy"></div>
-                </div>
-                <div class="karte-touch-hint">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0-3-3 3 3 0 0 0-3 3H4a2 2 0 0 0-2 2v6a8 8 0 0 0 8 8h1a8 8 0 0 0 8-8v-2a3 3 0 0 0-1-2"/></svg>
-                    Wischen zum Blättern
-                </div>
-                <button class="karte-nav-btn prev disabled" id="kartePrev" aria-label="Vorherige Seite"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
-                <button class="karte-nav-btn next" id="karteNext" aria-label="Nächste Seite"><svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg></button>
-            </div>
-            <div class="karte-indicator" id="karteDots"></div>
-            <div class="karte-counter"><span class="current-page" id="karteCurrentPage">1</span><span> / 10</span></div>
-            <div class="karte-page-label" id="kartePageLabel">Vorspeisen</div>
-            <div class="karte-download">
-                <a href="images/Karte-Akropolis-0925.pdf" download title="Speisekarte als PDF herunterladen">
-                    <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                    Speisekarte als PDF
+            <ul class="mobile-menu-links">
+                <li><a href="#about">Über Uns</a></li>
+                <li><a href="#cuisine">Küche</a></li>
+                <li><a href="#gallery">Galerie</a></li>
+                <li><a href="#menu">Speisekarte</a></li>
+                <li><a href="#contact">Kontakt</a></li>
+            </ul>
+            <div class="mobile-menu-cta">
+                <a href="tel:+4924519116046" class="mobile-cta-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    Jetzt Reservieren
                 </a>
             </div>
+            <div class="mobile-menu-hours">
+                <p>Di–Sa: 17:30–22:00</p>
+                <p>So: 11:30–14:30 & 17:30–22:00</p>
+            </div>
         </div>
     </div>
-</section>
 
-<!-- CTA Band -->
-<section class="section statement" style="padding: 80px 0;">
-    <div class="container">
-        <div class="statement-inner reveal">
-            <blockquote class="statement-quote" style="font-size: 2.2rem;">Lust bekommen? Reservieren Sie Ihren Tisch.</blockquote>
-            <div style="margin-top: 35px;"><a href="tel:+4924519116046" class="btn btn-primary">Jetzt anrufen</a></div>
-        </div>
+    <!-- Mobile Floating CTA -->
+    <div class="mobile-float-cta" id="mobileFloatCta">
+        <a href="tel:+4924519116046" class="mobile-float-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span>Reservieren</span>
+        </a>
     </div>
-</section>
 
-<!-- Contact & Reservation -->
-<section class="section contact-section" id="contact">
-    <div class="container">
-        <div class="contact-grid">
-            <div class="contact-info">
-                <p class="section-label reveal">Kontakt</p>
-                <h2 class="section-title reveal">Besuchen Sie <em>uns</em></h2>
-                <div class="contact-details">
-                    <div class="contact-item reveal">
-                        <div class="contact-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-                        <div><h4>Adresse</h4><p>Dohlenweg 5<br>52511 Geilenkirchen</p></div>
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-bg">
+            <img src="images/feast-table.jpg" alt="Akropolis Dining Experience">
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <p class="hero-subtitle reveal">Griechisches Restaurant</p>
+            <h1 class="hero-title reveal">
+                <span class="hero-title-line">Willkommen im</span>
+                <span class="hero-title-accent">Akropolis</span>
+            </h1>
+            <p class="hero-desc reveal">Authentische mediterrane Küche — seit Generationen mit Leidenschaft zubereitet</p>
+            <div class="hero-actions reveal">
+                <a href="#cuisine" class="btn btn-primary">Entdecken</a>
+                <a href="tel:+4924519116046" class="btn btn-outline">Tisch reservieren</a>
+            </div>
+        </div>
+        <div class="hero-scroll">
+            <div class="hero-scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section about" id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-images">
+                    <div class="about-img about-img-main reveal-left">
+                        <img src="images/exterior.jpg" alt="Akropolis Restaurant Außenansicht">
                     </div>
-                    <div class="contact-item reveal">
-                        <div class="contact-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
-                        <div><h4>Öffnungszeiten</h4><p>Montag: Ruhetag</p><p>Dienstag – Samstag: 17:30 – 22:00 Uhr</p><p>Sonntag: 11:30 – 14:30 & 17:30 – 22:00 Uhr</p></div>
+                    <div class="about-img about-img-accent reveal-left" style="animation-delay: 0.2s">
+                        <img src="images/medusa-lamp.jpg" alt="Elegantes Interieur">
+                    </div>
+                </div>
+                <div class="about-text">
+                    <p class="section-label reveal">Über Uns</p>
+                    <h2 class="section-title reveal">Wo Tradition auf <em>Leidenschaft</em> trifft</h2>
+                    <p class="about-desc reveal">
+                        Im Herzen von Geilenkirchen vereinen wir die Aromen Griechenlands mit der Wärme
+                        mediterraner Gastfreundschaft. Jedes Gericht erzählt eine Geschichte — von sonnenverwöhnten
+                        Olivenhainen, kristallklarem Meer und Familienrezepten, die seit Generationen weitergegeben werden.
+                    </p>
+                    <p class="about-desc reveal">
+                        Vasiliki und Georgios Giannoulas laden Sie ein, den Geschmack Griechenlands zu erleben —
+                        in einer Atmosphäre, die Eleganz und Herzlichkeit vereint.
+                    </p>
+                    <div class="about-signature reveal">
+                        <span class="signature-line"></span>
+                        <span class="signature-text">Vasiliki & Georgios Giannoulas</span>
                     </div>
                 </div>
             </div>
-            <div class="reservation-card" id="reservation">
-                <div class="reservation-phone-cta">
-                    <div class="reservation-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
-                    <h3 class="reservation-title">Tisch reservieren</h3>
-                    <p class="reservation-desc">Rufen Sie uns an — wir freuen uns auf Ihre Reservierung</p>
-                    <a href="tel:+4924519116046" class="reservation-phone-number">02451 911 60 46</a>
-                    <a href="tel:+4924519116046" class="btn btn-primary btn-full">Jetzt anrufen</a>
-                    <p class="reservation-hours">Erreichbar während der Öffnungszeiten</p>
+        </div>
+    </section>
+
+    <!-- Cuisine Section -->
+    <section class="section cuisine" id="cuisine">
+        <div class="cuisine-bg">
+            <img src="images/greece-sea.jpg" alt="Griechisches Meer">
+        </div>
+        <div class="cuisine-overlay"></div>
+        <div class="container">
+            <div class="cuisine-header">
+                <p class="section-label reveal">Unsere Küche</p>
+                <h2 class="section-title section-title-light reveal">Der Geschmack des <em>Mittelmeers</em></h2>
+            </div>
+            <div class="cuisine-grid">
+                <div class="cuisine-card reveal">
+                    <div class="cuisine-card-img">
+                        <img src="images/bruschetta.jpg" alt="Vorspeisen">
+                    </div>
+                    <div class="cuisine-card-content">
+                        <h3>Vorspeisen & Mezze</h3>
+                        <p>Von knusprigem Saganaki bis zu cremigem Tzatziki — unsere Mezze-Auswahl ist eine Reise durch die Aromen Griechenlands.</p>
+                    </div>
+                </div>
+                <div class="cuisine-card reveal" style="animation-delay: 0.15s">
+                    <div class="cuisine-card-img">
+                        <img src="images/octopus.jpg" alt="Meeresfrüchte">
+                    </div>
+                    <div class="cuisine-card-content">
+                        <h3>Vom Meer</h3>
+                        <p>Gegrillter Oktopus, frische Calamares und feinste Fischplatten — zubereitet wie an der griechischen Küste.</p>
+                    </div>
+                </div>
+                <div class="cuisine-card reveal" style="animation-delay: 0.3s">
+                    <div class="cuisine-card-img">
+                        <img src="images/tomahawk.jpg" alt="Vom Grill">
+                    </div>
+                    <div class="cuisine-card-content">
+                        <h3>Vom Grill</h3>
+                        <p>Saftige Souvlaki, zartes Lammfleisch und unser legendäres Tomahawk Steak — perfekt über Kohle gegrillt.</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- Footer -->
-<footer class="footer">
-    <div class="container">
-        <div class="footer-inner">
-            <div class="footer-brand">
-                <div class="footer-logo-wrap">
-                    <img class="footer-logo-icon" src="images/logo-akropolis.jpg" alt="Akropolis Logo">
-                    <span class="footer-logo-text">AKROPOLIS</span>
-                </div>
-                <p class="footer-tagline">Griechisches Restaurant seit Generationen</p>
-            </div>
-            <div class="footer-links">
-                <div class="footer-col"><h5>Navigation</h5><a href="#about">Über Uns</a><a href="#cuisine">Küche</a><a href="#gallery">Galerie</a><a href="#menu">Speisekarte</a></div>
-                <div class="footer-col"><h5>Kontakt</h5><a href="#">Dohlenweg 5, 52511 Geilenkirchen</a><a href="#">Di–Sa: 17:30–22:00</a><a href="#">So: 11:30–14:30 & 17:30–22:00</a></div>
+    <!-- Statement Section -->
+    <section class="section statement">
+        <div class="container">
+            <div class="statement-inner reveal">
+                <blockquote class="statement-quote">
+                    „Kochen ist Liebe, die man schmecken kann"
+                </blockquote>
+                <p class="statement-attr">— Unsere Philosophie</p>
             </div>
         </div>
-        <div class="footer-bottom"><p>&copy; 2026 Akropolis Geilenkirchen. Alle Rechte vorbehalten.</p></div>
-    </div>
-</footer>
-```
+    </section>
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
+    <!-- Gallery Section -->
+    <section class="section gallery" id="gallery">
+        <div class="container">
+            <div class="gallery-header">
+                <p class="section-label reveal">Galerie</p>
+                <h2 class="section-title reveal">Momente & <em>Impressionen</em></h2>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item gallery-item-tall reveal">
+                    <img src="images/tomahawk-seasoning.jpg" alt="Tomahawk Steak">
+                    <div class="gallery-item-overlay">
+                        <span>Tomahawk Steak</span>
+                    </div>
+                </div>
+                <div class="gallery-item reveal" style="animation-delay:0.1s">
+                    <img src="images/cocktail.jpg" alt="Signature Cocktail">
+                    <div class="gallery-item-overlay">
+                        <span>Signature Cocktails</span>
+                    </div>
+                </div>
+                <div class="gallery-item reveal" style="animation-delay:0.2s">
+                    <img src="images/table-setting.jpg" alt="Tischgedeck">
+                    <div class="gallery-item-overlay">
+                        <span>Ambiance</span>
+                    </div>
+                </div>
+                <div class="gallery-item gallery-item-wide reveal" style="animation-delay:0.15s">
+                    <img src="images/cocktails.jpg" alt="Bar">
+                    <div class="gallery-item-overlay">
+                        <span>Bar & Lounge</span>
+                    </div>
+                </div>
+                <div class="gallery-item reveal" style="animation-delay:0.25s">
+                    <img src="images/lifestyle-fun.jpg" alt="Gäste">
+                    <div class="gallery-item-overlay">
+                        <span>Unvergessliche Abende</span>
+                    </div>
+                </div>
+                <div class="gallery-item reveal" style="animation-delay:0.3s">
+                    <img src="images/lifestyle-bw.jpg" alt="Lifestyle">
+                    <div class="gallery-item-overlay">
+                        <span>Lebensfreude</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    // --- Preloader ---
-    const preloader = document.getElementById('preloader');
-    window.addEventListener('load', () => { setTimeout(() => { preloader.classList.add('hidden'); }, 1200); });
-    setTimeout(() => { preloader.classList.add('hidden'); }, 3000);
+    <!-- Menu Slideshow -->
+    <section class="section menu-section" id="menu">
+        <div class="container">
+            <div class="menu-header">
+                <p class="section-label reveal">Speisekarte</p>
+                <h2 class="section-title reveal">Unsere <em>Küche</em></h2>
+            </div>
+            <div class="menu-slideshow reveal" id="menuSlideshow">
+                <div class="slideshow-track" id="slideshowTrack">
+                    <div class="slideshow-slide active"><img src="images/menu-page-01.jpg" alt="Speisekarte — Vorspeisen" loading="lazy"></div>
+                    <div class="slideshow-slide"><img src="images/menu-page-02.jpg" alt="Speisekarte — Salate, Suppen & Beilagen" loading="lazy"></div>
+                    <div class="slideshow-slide"><img src="images/menu-page-03.jpg" alt="Speisekarte — Vom Grill" loading="lazy"></div>
+                    <div class="slideshow-slide"><img src="images/menu-page-04.jpg" alt="Speisekarte — Vom Grill II" loading="lazy"></div>
+                    <div class="slideshow-slide"><img src="images/menu-page-05.jpg" alt="Speisekarte — Aus dem Ofen & Fisch" loading="lazy"></div>
+                    <div class="slideshow-slide"><img src="images/menu-page-06.jpg" alt="Speisekarte — Spezialgerichte" loading="lazy"></div>
+                    <div class="slideshow-slide"><img src="images/menu-page-07.jpg" alt="Speisekarte — Pizza & Kindergerichte" loading="lazy"></div>
+                    <div class="slideshow-slide"><img src="images/menu-page-08.jpg" alt="Speisekarte — Warme Getränke, Bier & Spirituosen" loading="lazy"></div>
+                    <div class="slideshow-slide"><img src="images/menu-page-09.jpg" alt="Speisekarte — Weine" loading="lazy"></div>
+                    <div class="slideshow-slide"><img src="images/menu-page-10.jpg" alt="Speisekarte — Alkoholfreie Getränke & Öffnungszeiten" loading="lazy"></div>
+                </div>
+                <button class="slideshow-btn slideshow-prev" id="slidePrev" aria-label="Vorherige Seite">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+                </button>
+                <button class="slideshow-btn slideshow-next" id="slideNext" aria-label="Nächste Seite">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 6 15 12 9 18"/></svg>
+                </button>
+                <div class="slideshow-counter" id="slideCounter">
+                    <span class="slideshow-current">1</span> / <span class="slideshow-total">10</span>
+                </div>
+                <div class="slideshow-dots" id="slideDots">
+                    <button class="slideshow-dot active" data-slide="0" aria-label="Seite 1"></button>
+                    <button class="slideshow-dot" data-slide="1" aria-label="Seite 2"></button>
+                    <button class="slideshow-dot" data-slide="2" aria-label="Seite 3"></button>
+                    <button class="slideshow-dot" data-slide="3" aria-label="Seite 4"></button>
+                    <button class="slideshow-dot" data-slide="4" aria-label="Seite 5"></button>
+                    <button class="slideshow-dot" data-slide="5" aria-label="Seite 6"></button>
+                    <button class="slideshow-dot" data-slide="6" aria-label="Seite 7"></button>
+                    <button class="slideshow-dot" data-slide="7" aria-label="Seite 8"></button>
+                    <button class="slideshow-dot" data-slide="8" aria-label="Seite 9"></button>
+                    <button class="slideshow-dot" data-slide="9" aria-label="Seite 10"></button>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    // --- Navigation scroll ---
-    const nav = document.getElementById('nav');
-    const handleNavScroll = () => { nav.classList.toggle('scrolled', window.scrollY > 80); };
-    window.addEventListener('scroll', handleNavScroll, { passive: true });
-    handleNavScroll();
+    <!-- CTA Band -->
+    <section class="section statement" style="padding: 80px 0;">
+        <div class="container">
+            <div class="statement-inner reveal">
+                <blockquote class="statement-quote" style="font-size: 2.2rem;">
+                    Lust bekommen? Reservieren Sie Ihren Tisch.
+                </blockquote>
+                <div style="margin-top: 35px;">
+                    <a href="tel:+4924519116046" class="btn btn-primary">Jetzt anrufen</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    // --- Mobile menu ---
-    const navToggle = document.getElementById('navToggle');
-    const mobileMenu = document.getElementById('mobileMenu');
-    navToggle.addEventListener('click', () => {
-        navToggle.classList.toggle('active');
-        mobileMenu.classList.toggle('active');
-        document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
-    });
-    mobileMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => { navToggle.classList.remove('active'); mobileMenu.classList.remove('active'); document.body.style.overflow = ''; });
-    });
+    <!-- Contact & Reservation -->
+    <section class="section contact-section" id="contact">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <p class="section-label reveal">Kontakt</p>
+                    <h2 class="section-title reveal">Besuchen Sie <em>uns</em></h2>
+                    <div class="contact-details">
+                        <div class="contact-item reveal">
+                            <div class="contact-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            </div>
+                            <div>
+                                <h4>Adresse</h4>
+                                <p>Dohlenweg 5<br>52511 Geilenkirchen</p>
+                            </div>
+                        </div>
+                        <div class="contact-item reveal">
+                            <div class="contact-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                            </div>
+                            <div>
+                                <h4>Öffnungszeiten</h4>
+                                <p>Montag: Ruhetag</p>
+                                <p>Dienstag – Samstag: 17:30 – 22:00 Uhr</p>
+                                <p>Sonntag: 11:30 – 14:30 & 17:30 – 22:00 Uhr</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="reservation-card" id="reservation">
+                    <div class="reservation-phone-cta">
+                        <div class="reservation-icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        </div>
+                        <h3 class="reservation-title">Tisch reservieren</h3>
+                        <p class="reservation-desc">Rufen Sie uns an — wir freuen uns auf Ihre Reservierung</p>
+                        <a href="tel:+4924519116046" class="reservation-phone-number">02451 911 60 46</a>
+                        <a href="tel:+4924519116046" class="btn btn-primary btn-full">Jetzt anrufen</a>
+                        <p class="reservation-hours">Erreichbar während der Öffnungszeiten</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    // --- Smooth scroll ---
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', (e) => {
-            e.preventDefault();
-            const target = document.querySelector(anchor.getAttribute('href'));
-            if (target) { window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' }); }
-        });
-    });
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-inner">
+                <div class="footer-brand">
+                    <div class="footer-logo-wrap">
+                        <img class="footer-logo-icon" src="images/logo-akropolis.jpg" alt="Akropolis Logo">
+                        <span class="footer-logo-text">AKROPOLIS</span>
+                    </div>
+                    <p class="footer-tagline">Griechisches Restaurant seit Generationen</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h5>Navigation</h5>
+                        <a href="#about">Über Uns</a>
+                        <a href="#cuisine">Küche</a>
+                        <a href="#gallery">Galerie</a>
+                        <a href="#menu">Speisekarte</a>
+                    </div>
+                    <div class="footer-col">
+                        <h5>Kontakt</h5>
+                        <a href="#">Dohlenweg 5, 52511 Geilenkirchen</a>
+                        <a href="#">Di–Sa: 17:30–22:00</a>
+                        <a href="#">So: 11:30–14:30 & 17:30–22:00</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Akropolis Geilenkirchen. Alle Rechte vorbehalten.</p>
+            </div>
+        </div>
+    </footer>
 
-    // --- Scroll reveal ---
-    const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const delay = entry.target.style.animationDelay;
-                if (delay) { setTimeout(() => { entry.target.classList.add('visible'); }, parseFloat(delay) * 1000); }
-                else { entry.target.classList.add('visible'); }
-                revealObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-    document.querySelectorAll('.reveal, .reveal-left').forEach(el => revealObserver.observe(el));
-
-    // --- Hero parallax ---
-    const heroBg = document.querySelector('.hero-bg img');
-    if (heroBg && window.innerWidth > 768) {
-        window.addEventListener('scroll', () => { if (window.scrollY < window.innerHeight) heroBg.style.transform = `scale(1.1) translateY(${window.scrollY * 0.15}px)`; }, { passive: true });
-    }
-
-    // --- Mobile floating CTA ---
-    const mobileFloatCta = document.getElementById('mobileFloatCta');
-    if (mobileFloatCta) {
-        const handleFloatCta = () => {
-            const heroH = document.getElementById('hero')?.offsetHeight || 600;
-            const nearBottom = window.scrollY + window.innerHeight > document.documentElement.scrollHeight - 200;
-            mobileFloatCta.classList.toggle('visible', window.scrollY > heroH * 0.7 && !nearBottom);
-        };
-        window.addEventListener('scroll', handleFloatCta, { passive: true });
-        handleFloatCta();
-    }
-
-    // --- Active nav highlight ---
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-links a');
-    window.addEventListener('scroll', () => {
-        const scrollPos = window.scrollY + 200;
-        sections.forEach(section => {
-            if (scrollPos >= section.offsetTop && scrollPos < section.offsetTop + section.offsetHeight) {
-                navLinks.forEach(link => { link.style.color = link.getAttribute('href') === `#${section.id}` ? 'var(--gold)' : ''; });
-            }
-        });
-    }, { passive: true });
-
-    // --- Scroll Progress Bar ---
-    const scrollProgress = document.getElementById('scrollProgress');
-    if (scrollProgress) {
-        window.addEventListener('scroll', () => { scrollProgress.style.width = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100 + '%'; }, { passive: true });
-    }
-
-    // ============================================
-    // SPEISEKARTE SLIDESHOW
-    // ============================================
-    const PAGE_LABELS = ['Vorspeisen','Salate, Suppen & Beilagen','Spezialitäten vom Grill','Spezialitäten vom Grill','Aus dem Ofen & Fisch','Spezialgerichte','Pizza & Kindergerichte','Warme Getränke, Bier & Spirituosen','Weine','Getränke & Öffnungszeiten'];
-    const track = document.getElementById('karteTrack');
-    const prevBtn = document.getElementById('kartePrev');
-    const nextBtn = document.getElementById('karteNext');
-    const dotsContainer = document.getElementById('karteDots');
-    const counterEl = document.getElementById('karteCurrentPage');
-    const labelEl = document.getElementById('kartePageLabel');
-    const TOTAL = 10;
-    let karteCurrent = 0, karteStartX = 0, karteDeltaX = 0, karteDragging = false;
-
-    for (let i = 0; i < TOTAL; i++) {
-        const dot = document.createElement('span');
-        dot.className = 'karte-dot' + (i === 0 ? ' active' : '');
-        dot.addEventListener('click', () => karteGoTo(i));
-        dotsContainer.appendChild(dot);
-    }
-
-    function karteGoTo(index) {
-        if (index < 0 || index >= TOTAL) return;
-        karteCurrent = index;
-        track.style.transform = 'translateX(-' + (karteCurrent * 100) + '%)';
-        dotsContainer.querySelectorAll('.karte-dot').forEach((d, i) => d.classList.toggle('active', i === karteCurrent));
-        counterEl.textContent = karteCurrent + 1;
-        labelEl.textContent = PAGE_LABELS[karteCurrent];
-        prevBtn.classList.toggle('disabled', karteCurrent === 0);
-        nextBtn.classList.toggle('disabled', karteCurrent === TOTAL - 1);
-        // Preload next
-        const imgs = track.querySelectorAll('.karte-slide img');
-        for (let i = karteCurrent; i <= Math.min(karteCurrent + 2, TOTAL - 1); i++) imgs[i].loading = 'eager';
-    }
-
-    prevBtn.addEventListener('click', () => karteGoTo(karteCurrent - 1));
-    nextBtn.addEventListener('click', () => karteGoTo(karteCurrent + 1));
-    document.addEventListener('keydown', (e) => { if (e.key === 'ArrowLeft') karteGoTo(karteCurrent - 1); if (e.key === 'ArrowRight') karteGoTo(karteCurrent + 1); });
-
-    // Touch & mouse drag
-    const viewport = track.parentElement;
-    function karteOnStart(x) { karteDragging = true; karteStartX = x; karteDeltaX = 0; track.classList.add('dragging'); }
-    function karteOnMove(x) { if (!karteDragging) return; karteDeltaX = x - karteStartX; track.style.transform = 'translateX(' + (-(karteCurrent * 100) + (karteDeltaX / viewport.offsetWidth * 100)) + '%)'; }
-    function karteOnEnd() {
-        if (!karteDragging) return; karteDragging = false; track.classList.remove('dragging');
-        const threshold = viewport.offsetWidth * 0.12;
-        if (karteDeltaX < -threshold && karteCurrent < TOTAL - 1) karteGoTo(karteCurrent + 1);
-        else if (karteDeltaX > threshold && karteCurrent > 0) karteGoTo(karteCurrent - 1);
-        else karteGoTo(karteCurrent);
-    }
-    viewport.addEventListener('touchstart', (e) => karteOnStart(e.touches[0].clientX), { passive: true });
-    viewport.addEventListener('touchmove', (e) => karteOnMove(e.touches[0].clientX), { passive: true });
-    viewport.addEventListener('touchend', karteOnEnd);
-    viewport.addEventListener('mousedown', (e) => { e.preventDefault(); karteOnStart(e.clientX); });
-    viewport.addEventListener('mousemove', (e) => karteOnMove(e.clientX));
-    viewport.addEventListener('mouseup', karteOnEnd);
-    viewport.addEventListener('mouseleave', () => { if (karteDragging) karteOnEnd(); });
-
-    // ============================================
-    // FLYING FOOD — Scroll-Driven Animation (Desktop)
-    // ============================================
-    if (window.innerWidth > 768) {
-        const flyElements = [
-            { el: document.getElementById('flyOlive'), startScroll: 0.08, endScroll: 0.30, startX: -200, endX: window.innerWidth + 200, startY: 0.25, endY: 0.15, rotation: 180 },
-            { el: document.getElementById('flyLemon'), startScroll: 0.25, endScroll: 0.48, startX: window.innerWidth + 160, endX: -200, startY: 0.60, endY: 0.35, rotation: -270 },
-            { el: document.getElementById('flyLaurel'), startScroll: 0.45, endScroll: 0.68, startX: -180, endX: window.innerWidth + 180, startY: 0.40, endY: 0.55, rotation: 200 },
-            { el: document.getElementById('flyHerb'), startScroll: 0.62, endScroll: 0.85, startX: window.innerWidth + 140, endX: -160, startY: 0.20, endY: 0.50, rotation: -240 }
-        ];
-        let ticking = false;
-        const updateFlyingFood = () => {
-            const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
-            const vh = window.innerHeight;
-            flyElements.forEach(item => {
-                if (!item.el) return;
-                if (scrollPercent < item.startScroll || scrollPercent > item.endScroll) { item.el.style.opacity = '0'; return; }
-                const progress = (scrollPercent - item.startScroll) / (item.endScroll - item.startScroll);
-                const eased = progress < 0.5 ? 4*progress*progress*progress : 1-Math.pow(-2*progress+2,3)/2;
-                let opacity = 1;
-                if (progress < 0.15) opacity = progress / 0.15;
-                else if (progress > 0.85) opacity = (1 - progress) / 0.15;
-                opacity = Math.min(1, Math.max(0, opacity)) * 0.7;
-                const x = item.startX + (item.endX - item.startX) * eased;
-                const y = (item.startY + (item.endY - item.startY) * eased) * vh;
-                const scale = 0.8 + 0.4 * Math.sin(progress * Math.PI);
-                item.el.style.opacity = opacity;
-                item.el.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${item.rotation * eased}deg) scale(${scale})`;
-            });
-            ticking = false;
-        };
-        window.addEventListener('scroll', () => { if (!ticking) { requestAnimationFrame(updateFlyingFood); ticking = true; } }, { passive: true });
-        window.addEventListener('resize', () => { const w = window.innerWidth; flyElements[0].endX = w+200; flyElements[1].startX = w+160; flyElements[2].endX = w+180; flyElements[3].startX = w+140; });
-        updateFlyingFood();
-    }
-
-});
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
