@@ -812,18 +812,15 @@ a {
 }
 
 .slideshow-track {
-    position: relative;
-    width: 100%;
+    display: flex;
+    transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
 }
 
 .slideshow-slide {
-    display: none;
+    flex: 0 0 100%;
     width: 100%;
-    animation: slideFadeIn 0.5s ease;
-}
-
-.slideshow-slide.active {
-    display: block;
+    min-width: 100%;
 }
 
 .slideshow-slide img {
@@ -831,11 +828,8 @@ a {
     height: auto;
     display: block;
     object-fit: contain;
-}
-
-@keyframes slideFadeIn {
-    from { opacity: 0; transform: scale(0.98); }
-    to { opacity: 1; transform: scale(1); }
+    -webkit-user-drag: none;
+    user-select: none;
 }
 
 /* Nav Buttons */
