@@ -69,24 +69,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     revealElements.forEach(el => revealObserver.observe(el));
 
-    // --- Menu Slideshow ---
+    // --- Menu Slideshow (smooth transform slider) ---
+    const track = document.getElementById('slideshowTrack');
     const slides = document.querySelectorAll('.slideshow-slide');
     const dots = document.querySelectorAll('.slideshow-dot');
     const prevBtn = document.getElementById('slidePrev');
     const nextBtn = document.getElementById('slideNext');
     const counterCurrent = document.querySelector('.slideshow-current');
+    const slideshowEl = document.getElementById('menuSlideshow');
     let currentSlide = 0;
     const totalSlides = slides.length;
 
     function goToSlide(n) {
-        slides[currentSlide].classList.remove('active');
-        dots[currentSlide].classList.remove('active');
-        currentSlide = (n + totalSlides) % totalSlides;
-        slides[currentSlide].classList.remove('active');
-        // Force reflow for animation restart
-        void slides[currentSlide].offsetWidth;
-        slides[currentSlide].classList.add('active');
-        dots[currentSlide].classList.add('active');
+        currentSlide = Math.max(0, Math.min(n, totalSlides - 1));
+        track.style.transform = `translateX(-${currentSlide * 100}%)`;
+        dots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
         if (counterCurrent) counterCurrent.textContent = currentSlide + 1;
     }
 
@@ -94,26 +91,39 @@ document.addEventListener('DOMContentLoaded', () => {
     if (nextBtn) nextBtn.addEventListener('click', () => goToSlide(currentSlide + 1));
 
     dots.forEach(dot => {
-        dot.addEventListener('click', () => {
-            goToSlide(parseInt(dot.dataset.slide));
-        });
+        dot.addEventListener('click', () => goToSlide(parseInt(dot.dataset.slide)));
     });
 
-    // Touch/swipe support
-    let touchStartX = 0;
-    let touchEndX = 0;
-    const slideshowEl = document.getElementById('menuSlideshow');
+    // Touch drag-to-swipe
+    let dragStartX = 0;
+    let dragDelta = 0;
+    let isDragging = false;
+
     if (slideshowEl) {
         slideshowEl.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
+            dragStartX = e.touches[0].clientX;
+            isDragging = true;
+            track.style.transition = 'none';
         }, { passive: true });
-        slideshowEl.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            const diff = touchStartX - touchEndX;
-            if (Math.abs(diff) > 50) {
-                if (diff > 0) goToSlide(currentSlide + 1);
+
+        slideshowEl.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            dragDelta = e.touches[0].clientX - dragStartX;
+            const baseOffset = -currentSlide * 100;
+            const dragPercent = (dragDelta / slideshowEl.offsetWidth) * 100;
+            track.style.transform = `translateX(${baseOffset + dragPercent}%)`;
+        }, { passive: true });
+
+        slideshowEl.addEventListener('touchend', () => {
+            isDragging = false;
+            track.style.transition = 'transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            if (Math.abs(dragDelta) > 50) {
+                if (dragDelta < 0) goToSlide(currentSlide + 1);
                 else goToSlide(currentSlide - 1);
+            } else {
+                goToSlide(currentSlide);
             }
+            dragDelta = 0;
         }, { passive: true });
     }
 
