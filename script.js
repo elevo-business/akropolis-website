@@ -1,6 +1,14 @@
 /* ============================================
-   AKROPOLIS — Consolidated JavaScript
+   AKROPOLIS — Consolidated JavaScript v2
+   FIX: scrollRestoration + scrollTo for top cutoff
    ============================================ */
+
+/* FIX: Seite startet IMMER oben — verhindert Top-Cutoff nach Refresh */
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
+window.scrollTo(0, 0);
+
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- Preloader ---
@@ -8,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('load', () => {
         setTimeout(() => { preloader.classList.add('hidden'); }, 1200);
     });
+    // Fallback: Preloader nach 3s immer ausblenden
     setTimeout(() => { preloader.classList.add('hidden'); }, 3000);
 
     // --- Navigation scroll effect ---
@@ -49,8 +58,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- Scroll reveal animations (+ clip-path reveals) ---
-    const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal');
+    // --- Scroll reveal animations ---
+    const revealElements = document.querySelectorAll('.reveal, .reveal-left');
 
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -69,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     revealElements.forEach(el => revealObserver.observe(el));
 
-    // --- Menu Slideshow (smooth transform slider) ---
+    // --- Menu Slideshow ---
     const track = document.getElementById('slideshowTrack');
     const slides = document.querySelectorAll('.slideshow-slide');
     const dots = document.querySelectorAll('.slideshow-dot');
@@ -94,10 +103,8 @@ document.addEventListener('DOMContentLoaded', () => {
         dot.addEventListener('click', () => goToSlide(parseInt(dot.dataset.slide)));
     });
 
-    // Touch drag-to-swipe
-    let dragStartX = 0;
-    let dragDelta = 0;
-    let isDragging = false;
+    // Touch swipe
+    let dragStartX = 0, dragDelta = 0, isDragging = false;
 
     if (slideshowEl) {
         slideshowEl.addEventListener('touchstart', (e) => {
@@ -127,13 +134,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { passive: true });
     }
 
-    // Keyboard navigation
+    // Keyboard nav
     document.addEventListener('keydown', (e) => {
         if (e.key === 'ArrowLeft') goToSlide(currentSlide - 1);
         if (e.key === 'ArrowRight') goToSlide(currentSlide + 1);
     });
 
-    // --- Hero parallax ---
+    // --- Hero parallax (Desktop only) ---
     const heroBg = document.querySelector('.hero-bg img');
     if (heroBg && window.innerWidth > 768) {
         window.addEventListener('scroll', () => {
@@ -152,7 +159,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const heroHeight = document.getElementById('hero')?.offsetHeight || 600;
             const docHeight = document.documentElement.scrollHeight;
             const winHeight = window.innerHeight;
-            const nearBottom = scrollY + winHeight > docHeight - 200;
+            /* FIX: Mehr Abstand zum Footer-Ende damit Legal-Links sichtbar bleiben */
+            const nearBottom = scrollY + winHeight > docHeight - 300;
             mobileFloatCta.classList.toggle('visible', scrollY > heroHeight * 0.7 && !nearBottom);
         };
         window.addEventListener('scroll', handleFloatCta, { passive: true });
@@ -193,54 +201,37 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ============================================
-    // FLYING FOOD — Scroll-Driven Animation
-    // Desktop only, GPU-accelerated, rAF loop
+    // FLYING FOOD — Desktop only
     // ============================================
     if (window.innerWidth > 768) {
         const flyElements = [
             {
                 el: document.getElementById('flyOlive'),
-                startScroll: 0.08,   // Start at 8% of page
-                endScroll: 0.30,     // End at 30%
-                startX: -200,
-                endX: window.innerWidth + 200,
-                startY: 0.25,        // 25% from top of viewport
-                endY: 0.15,
-                rotation: 180,
-                direction: 1
+                startScroll: 0.08, endScroll: 0.30,
+                startX: -200, endX: window.innerWidth + 200,
+                startY: 0.25, endY: 0.15,
+                rotation: 180, direction: 1
             },
             {
                 el: document.getElementById('flyLemon'),
-                startScroll: 0.25,
-                endScroll: 0.48,
-                startX: window.innerWidth + 160,
-                endX: -200,
-                startY: 0.60,
-                endY: 0.35,
-                rotation: -270,
-                direction: -1
+                startScroll: 0.25, endScroll: 0.48,
+                startX: window.innerWidth + 160, endX: -200,
+                startY: 0.60, endY: 0.35,
+                rotation: -270, direction: -1
             },
             {
                 el: document.getElementById('flyLaurel'),
-                startScroll: 0.45,
-                endScroll: 0.68,
-                startX: -180,
-                endX: window.innerWidth + 180,
-                startY: 0.40,
-                endY: 0.55,
-                rotation: 200,
-                direction: 1
+                startScroll: 0.45, endScroll: 0.68,
+                startX: -180, endX: window.innerWidth + 180,
+                startY: 0.40, endY: 0.55,
+                rotation: 200, direction: 1
             },
             {
                 el: document.getElementById('flyHerb'),
-                startScroll: 0.62,
-                endScroll: 0.85,
-                startX: window.innerWidth + 140,
-                endX: -160,
-                startY: 0.20,
-                endY: 0.50,
-                rotation: -240,
-                direction: -1
+                startScroll: 0.62, endScroll: 0.85,
+                startX: window.innerWidth + 140, endX: -160,
+                startY: 0.20, endY: 0.50,
+                rotation: -240, direction: -1
             }
         ];
 
@@ -254,7 +245,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             flyElements.forEach(item => {
                 if (!item.el) return;
-
                 const { startScroll, endScroll, startX, endX, startY, endY, rotation } = item;
 
                 if (scrollPercent < startScroll || scrollPercent > endScroll) {
@@ -263,12 +253,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 const progress = (scrollPercent - startScroll) / (endScroll - startScroll);
-                // Ease in-out cubic
                 const eased = progress < 0.5
                     ? 4 * progress * progress * progress
                     : 1 - Math.pow(-2 * progress + 2, 3) / 2;
 
-                // Fade in/out at edges
                 let opacity = 1;
                 if (progress < 0.15) opacity = progress / 0.15;
                 else if (progress > 0.85) opacity = (1 - progress) / 0.15;
@@ -293,7 +281,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }, { passive: true });
 
-        // Update on resize
         window.addEventListener('resize', () => {
             const w = window.innerWidth;
             flyElements[0].endX = w + 200;
@@ -302,7 +289,6 @@ document.addEventListener('DOMContentLoaded', () => {
             flyElements[3].startX = w + 140;
         });
 
-        // Initial call
         updateFlyingFood();
     }
 
